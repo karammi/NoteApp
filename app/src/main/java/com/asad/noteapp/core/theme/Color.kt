@@ -1,4 +1,4 @@
-package com.asad.noteapp.ui.theme
+package com.asad.noteapp.core.theme
 
 import androidx.compose.ui.graphics.Color
 

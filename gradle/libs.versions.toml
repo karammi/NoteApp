@@ -10,6 +10,7 @@ activityCompose = "1.9.2"
 composeBom = "2024.09.02"
 appcompat = "1.7.0"
 material = "1.12.0"
+roomVersion = "2.6.1"
 
 composeNavigation = "2.8.1"
 ktlint = "11.6.0"
@@ -32,6 +33,7 @@ androidxJunit = "1.1.5"
 timber = "5.0.1"
 spotless = "6.19.0"
 googleTruth = "1.4.2"
+
 
 #others
 kotlinCompilerExtensionVersion = "1.5.4"
@@ -88,6 +90,10 @@ datastore = { group = "androidx.datastore", name = "datastore", version.ref = "d
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "googleTruth" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version = "1" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "roomVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
