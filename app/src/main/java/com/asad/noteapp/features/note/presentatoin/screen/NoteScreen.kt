@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -129,10 +130,17 @@ fun NoteContent(
                     onValueChange = onTitleChanged,
                     placeholder = { Text(text = "Title") },
                     colors = TextFieldDefaults.colors(
-                        focusedTextColor = Color.Transparent,
-                        unfocusedTextColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
                     )
+                )
+
+                HorizontalDivider(
+                    thickness = 2.dp,
+                    color = Color.LightGray,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
                 TextField(
@@ -144,24 +152,20 @@ fun NoteContent(
                     onValueChange = onNoteChanged,
                     placeholder = {
                         Text(text = "Note")
-                    }
+                    },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        focusedContainerColor = Color.Transparent
+                    )
                 )
             }
 
-            /** keep it in mind that
-             *  this can be implemented using bottom bar also inside this scaffold component
-             *
-             **/
-
-            /** keep it in mind that
-             *  this can be implemented using bottom bar also inside this scaffold component
-             *
-             **/
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(110.dp)
-                    .background(Color.LightGray)
                     .align(alignment = Alignment.BottomCenter),
                 contentAlignment = Alignment.Center
             ) {
@@ -188,7 +192,7 @@ fun NoteContent(
                             .size(48.dp),
                         onClick = onSaveClicked,
                         shape = CircleShape,
-                        containerColor = Color.Blue
+                        containerColor = Color(0xFF2284F9)
                     ) {
                         Image(
                             painter = painterResource(R.drawable.ic_tick_circle),
