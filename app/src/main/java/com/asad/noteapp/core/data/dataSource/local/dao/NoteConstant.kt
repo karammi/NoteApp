@@ -12,3 +12,9 @@ object NoteConstant {
     const val COLUMN_COLOR = "color"
     const val COLUMN_IS_PINNED = "is_pinned"
 }
+
+object TagConstant {
+    const val TABLE_NAME = "tbl_tag"
+    const val COLUMN_ID = "id"
+    const val COLUMN_NAME = "name"
+}

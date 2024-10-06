@@ -26,21 +26,9 @@ interface NoteDao {
     @Query("DELETE FROM ${NoteConstant.TABLE_NAME}")
     suspend fun deleteAllNotes()
 
-    @Query("SELECT * FROM ${NoteConstant.TABLE_NAME} WHERE ${NoteConstant.COLUMN_IS_PINNED} = 1")
-    fun getPinnedNotes(): Flow<List<NoteEntity>>
-
-
-    @Query("SELECT * FROM ${NoteConstant.TABLE_NAME} WHERE ${NoteConstant.COLUMN_IS_PINNED} = 0")
-    fun getUnpinnedNotes(): Flow<List<NoteEntity>>
-
-    @Query("SELECT * FROM ${NoteConstant.TABLE_NAME} WHERE ${NoteConstant.COLUMN_TAG} = :tag")
-    fun getNotesByTag(tag: String): Flow<List<NoteEntity>>
-
     @Update
     suspend fun updateNote(note: NoteEntity)
 
     @Upsert(entity = NoteEntity::class)
     suspend fun upsertNote(note: NoteEntity)
-
-
 }
