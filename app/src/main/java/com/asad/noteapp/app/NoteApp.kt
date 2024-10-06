@@ -15,7 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import com.asad.noteapp.app.navigation.Screen
 import com.asad.noteapp.features.note.presentatoin.screen.NoteScreen
 import com.asad.noteapp.features.home.presentation.screen.HomeScreen
-const val DEEP_LINK_BASE ="open://noteapp/"
+
+const val DEEP_LINK_BASE = "open://noteapp/"
 
 @Composable
 fun NoteApp() {
@@ -40,7 +41,7 @@ fun NoteApp() {
         }
 
         composable(route = Screen.AddNoteScreen.route) {
-            NoteScreen()
+            NoteScreen(onBackClicked = {})
         }
     }
 }
@@ -52,9 +53,7 @@ private fun RequestPermission() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                /* no-op */
             } else {
-//                    getString(R.string.user_cancelled_the_operation)
             }
         }
 
