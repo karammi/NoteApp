@@ -9,6 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,10 +22,15 @@ fun NoteBodyComponent(
     modifier: Modifier = Modifier,
     uiState: NoteUiState,
     onTitleChanged: (String) -> Unit,
-    onNoteChanged: (String) -> Unit
+    onNoteBodyChanged: (String) -> Unit
 ) {
-    val title = uiState.title ?: ""
-    val noteBody = uiState.note ?: ""
+    val title = remember(uiState.note) {
+        mutableStateOf(uiState.note?.title ?: "")
+    }
+
+    val noteBody = remember(key1 = uiState.note) {
+        mutableStateOf(uiState.note?.note ?: "")
+    }
     Column(
         modifier = modifier
             .fillMaxHeight()
@@ -31,7 +38,7 @@ fun NoteBodyComponent(
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = title,
+            value = title.value,
             onValueChange = onTitleChanged,
             placeholder = { Text(text = "Title") },
             colors = TextFieldDefaults.colors(
@@ -53,8 +60,8 @@ fun NoteBodyComponent(
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .padding(bottom = 110.dp),
-            value = noteBody,
-            onValueChange = onNoteChanged,
+            value = noteBody.value,
+            onValueChange = onNoteBodyChanged,
             placeholder = {
                 Text(text = "Note")
             },
@@ -73,7 +80,7 @@ fun NoteBodyComponent(
 fun NoteBodyComponentPreview() {
     NoteBodyComponent(
         uiState = NoteUiState(),
-        onNoteChanged = {},
+        onNoteBodyChanged = {},
         onTitleChanged = {}
     )
 }

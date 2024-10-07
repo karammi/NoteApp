@@ -19,7 +19,7 @@ import com.asad.noteapp.R
 @Composable
 fun RowScope.NoteToolbarComponent(
     onBackClicked: () -> Unit,
-    onReminderClicked: () -> Unit
+    onSetReminderClicked: (Boolean) -> Unit
 ) {
     Spacer(modifier = Modifier.width(8.dp))
     Image(
@@ -36,7 +36,7 @@ fun RowScope.NoteToolbarComponent(
     Image(
         modifier = Modifier
             .size(48.dp)
-            .clickable { onReminderClicked() },
+            .clickable { onSetReminderClicked(true) },
         painter = painterResource(R.drawable.ic_alarm),
         contentDescription = "reminder"
     )
@@ -53,11 +53,11 @@ fun RowScope.NoteToolbarComponent(
 
 @Preview(showSystemUi = true)
 @Composable
-fun NoteToolbarComponentPreview(modifier: Modifier = Modifier) {
+fun NoteToolbarComponentPreview() {
     Row {
         NoteToolbarComponent(
             onBackClicked = {},
-            onReminderClicked = {}
+            onSetReminderClicked = {}
         )
     }
 }

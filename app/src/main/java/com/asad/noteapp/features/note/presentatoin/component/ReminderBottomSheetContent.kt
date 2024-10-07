@@ -10,7 +10,10 @@ import com.asad.noteapp.R
 
 
 @Composable
-fun ReminderBottomSheetContent(onItemClicked: () -> Unit) {
+fun ReminderBottomSheetContent(
+    onReminderItemClicked: () -> Unit,
+    onPickDateClicked: () -> Unit
+) {
     ReminderBottomSheetItemComponent(
         modifier = Modifier
             .height(50.dp)
@@ -22,7 +25,7 @@ fun ReminderBottomSheetContent(onItemClicked: () -> Unit) {
         detail = "6:30 PM",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
-        onItemClicked = {}
+        onItemClicked = onReminderItemClicked
     )
 
     ReminderBottomSheetItemComponent(
@@ -36,7 +39,7 @@ fun ReminderBottomSheetContent(onItemClicked: () -> Unit) {
         detail = "6:30 PM",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
-        onItemClicked = {}
+        onItemClicked = onReminderItemClicked
     )
 
     ReminderBottomSheetItemComponent(
@@ -50,7 +53,7 @@ fun ReminderBottomSheetContent(onItemClicked: () -> Unit) {
         detail = "Tehran",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
-        onItemClicked = {}
+        onItemClicked = onReminderItemClicked
     )
 
     ReminderBottomSheetItemComponent(
@@ -64,10 +67,11 @@ fun ReminderBottomSheetContent(onItemClicked: () -> Unit) {
         detail = null,
         leadingResIcon = R.drawable.ic_calendar,
         showDivider = false,
-        onItemClicked = {},
+        onItemClicked = onPickDateClicked,
         trailingResIcon = R.drawable.ic_add
     )
 
     Spacer(modifier = Modifier.height(32.dp))
+
 }
 

@@ -1,6 +1,6 @@
 package com.asad.noteapp.features.note.domain.repository
 
-import com.asad.noteapp.features.note.domain.model.NoteModel
+import com.asad.noteapp.core.domain.note.model.NoteModel
 
 interface NoteRepository {
 
@@ -9,5 +9,7 @@ interface NoteRepository {
     suspend fun updateNote(note: NoteModel)
 
     suspend fun deleteNote(note: NoteModel)
+
+    suspend fun fetchNote(noteId: Int): NoteModel?
 
 }

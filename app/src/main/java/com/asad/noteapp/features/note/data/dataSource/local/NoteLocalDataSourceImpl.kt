@@ -1,7 +1,7 @@
 package com.asad.noteapp.features.note.data.dataSource.local
 
-import com.asad.noteapp.core.data.dataSource.local.dao.NoteDao
-import com.asad.noteapp.core.data.dataSource.local.dao.NoteEntity
+import com.asad.noteapp.core.data.dataSource.note.localDataSource.dao.NoteDao
+import com.asad.noteapp.core.data.dataSource.note.localDataSource.entity.NoteEntity
 import javax.inject.Inject
 
 class NoteLocalDataSourceImpl @Inject constructor(
@@ -19,4 +19,7 @@ class NoteLocalDataSourceImpl @Inject constructor(
     override suspend fun deleteNote(note: NoteEntity) {
         noteDao.deleteNote(note = note)
     }
+
+    override suspend fun fetchNote(noteId: Int): NoteEntity? =
+        noteDao.getNoteById(id = noteId)
 }

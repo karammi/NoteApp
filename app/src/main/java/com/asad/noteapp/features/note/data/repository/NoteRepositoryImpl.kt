@@ -1,8 +1,9 @@
 package com.asad.noteapp.features.note.data.repository
 
 import com.asad.noteapp.features.note.data.dataSource.local.NoteLocalDataSource
-import com.asad.noteapp.features.note.domain.model.NoteModel
-import com.asad.noteapp.features.note.domain.model.toNoteEntity
+import com.asad.noteapp.core.domain.note.model.NoteModel
+import com.asad.noteapp.core.domain.note.model.toNoteEntity
+import com.asad.noteapp.core.domain.note.model.toNoteModel
 import com.asad.noteapp.features.note.domain.repository.NoteRepository
 import javax.inject.Inject
 
@@ -21,4 +22,9 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun deleteNote(note: NoteModel) {
         noteLocalDataSource.deleteNote(note.toNoteEntity())
     }
+
+    override suspend fun fetchNote(noteId: Int): NoteModel? =
+        noteLocalDataSource
+            .fetchNote(noteId = noteId)
+            ?.toNoteModel()
 }

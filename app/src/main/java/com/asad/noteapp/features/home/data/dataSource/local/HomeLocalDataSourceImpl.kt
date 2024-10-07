@@ -1,6 +1,6 @@
 package com.asad.noteapp.features.home.data.dataSource.local
 
-import com.asad.noteapp.core.data.dataSource.local.dao.NoteEntity
+import com.asad.noteapp.core.data.dataSource.note.localDataSource.entity.NoteEntity
 import com.asad.noteapp.features.home.data.dataSource.local.dao.HomeDao
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -1,6 +1,7 @@
 package com.asad.noteapp.features.note.data.dataSource.local
 
-import com.asad.noteapp.core.data.dataSource.local.dao.NoteEntity
+import com.asad.noteapp.core.data.dataSource.note.localDataSource.entity.NoteEntity
+
 
 interface NoteLocalDataSource {
 
@@ -9,4 +10,6 @@ interface NoteLocalDataSource {
     suspend fun updateNote(note: NoteEntity)
 
     suspend fun deleteNote(note: NoteEntity)
+
+    suspend fun fetchNote(noteId: Int): NoteEntity?
 }

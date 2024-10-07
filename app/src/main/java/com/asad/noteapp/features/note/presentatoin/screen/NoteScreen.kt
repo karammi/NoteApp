@@ -2,26 +2,19 @@ package com.asad.noteapp.features.note.presentatoin.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -29,16 +22,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.asad.noteapp.R
 import com.asad.noteapp.features.note.presentatoin.component.NoteBodyComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteBottomComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteToolbarComponent
 import com.asad.noteapp.features.note.presentatoin.component.ReminderBottomSheetContent
-import com.asad.noteapp.features.note.presentatoin.component.ReminderBottomSheetItemComponent
+import com.asad.noteapp.features.note.presentatoin.dialog.DatePickerModal
+import com.asad.noteapp.features.note.presentatoin.dialog.DateTimePickerDialog
+import com.asad.noteapp.features.note.presentatoin.dialog.DateTimePickerDialogContent
+import com.asad.noteapp.features.note.presentatoin.dialog.TimerPickerDialog
 import com.asad.noteapp.features.note.presentatoin.model.NoteUiState
 import com.asad.noteapp.features.note.presentatoin.viewModel.NoteViewModel
-import kotlinx.coroutines.launch
-
 
 @Composable
 fun NoteScreen(
@@ -46,7 +39,6 @@ fun NoteScreen(
     onBackClicked: () -> Unit,
     viewModel: NoteViewModel = hiltViewModel()
 ) {
-
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     NoteContent(
@@ -54,6 +46,12 @@ fun NoteScreen(
         onTitleChanged = viewModel::onTitleChanged,
         onNoteChanged = viewModel::onNoteChanged,
         onSaveClicked = viewModel::onSaveClicked,
+        onDateChanged = viewModel::onDateSelected,
+        onTimeChanged = viewModel::onTimeSelected,
+        onShowDatePickerClicked = viewModel::onSetReminderClicked,
+        onShowDateTimeDialog = viewModel::showDateTimeDialog,
+        onShowTimePickerClicked = viewModel::onShowTimePicker,
+        onShowReminderBottomSheet = viewModel::onShowReminderBottomSheet,
         onBackClicked = onBackClicked
     )
 }
@@ -63,24 +61,54 @@ fun NoteScreen(
 @Composable
 fun NoteContent(
     uiState: NoteUiState,
-    onTitleChanged: (String) -> Unit = {},
-    onNoteChanged: (String) -> Unit = {},
-    onSaveClicked: () -> Unit = {},
-//    onReminderClicked: () -> Unit = {},
-    onBackClicked: () -> Unit = {},
+    onTitleChanged: (String) -> Unit,
+    onNoteChanged: (String) -> Unit,
+    onDateChanged: (Long) -> Unit,
+    onTimeChanged: (Long) -> Unit,
+    onShowDateTimeDialog: (Boolean) -> Unit,
+    onShowDatePickerClicked: (Boolean) -> Unit,
+    onShowTimePickerClicked: (Boolean) -> Unit,
+    onShowReminderBottomSheet: (Boolean) -> Unit,
+    onSaveClicked: () -> Unit,
+    onBackClicked: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState()
-    val scope = rememberCoroutineScope()
-    var showBottomSheet by remember { mutableStateOf(false) }
 
-    val onReminderClicked: () -> Unit = {
-        scope.launch { sheetState.hide() }
-            .invokeOnCompletion {
-                if (!sheetState.isVisible) {
-                    showBottomSheet = false
-                }
+    if (uiState.showDateTimeDialog == true)
+        DateTimePickerDialog(
+            onDismiss = {
+                onShowDateTimeDialog(false)
+                onShowDatePickerClicked(false)
+                onShowTimePickerClicked(false)
+            },
+            onConfirm = {
+                onShowDateTimeDialog(false)
+            },
+            content = {
+                DateTimePickerDialogContent(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .padding(horizontal = 8.dp),
+                    dateValue = uiState.selectedDate ?: "",
+                    timeValue = uiState.selectedTime ?: "",
+                    onShowDatePickerClicked = onShowDatePickerClicked,
+                    onShowTimePickerClicked = onShowTimePickerClicked
+                )
             }
-        showBottomSheet = !showBottomSheet
+        )
+
+    if (uiState.showDataPicker == true) {
+        DatePickerModal(
+            onDateSelected = { onDateChanged(it!!) },
+            onDismiss = { onShowDatePickerClicked(false) }
+        )
+    }
+
+    if (uiState.showTimePicker == true) {
+        TimerPickerDialog(
+            onConfirm = { onTimeChanged(it.hour.toLong() * 3600000 + it.minute.toLong() * 60000) },
+            onDismiss = { onShowTimePickerClicked(false) }
+        )
     }
 
     Scaffold(
@@ -90,19 +118,25 @@ fun NoteContent(
                 actions = {
                     NoteToolbarComponent(
                         onBackClicked = onBackClicked,
-                        onReminderClicked = onReminderClicked
+                        onSetReminderClicked = onShowReminderBottomSheet
                     )
                 }
             )
         },
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            if (showBottomSheet) {
+            if (uiState.showReminderBottomSheet) {
                 ModalBottomSheet(
-                    onDismissRequest = { showBottomSheet = false },
+                    onDismissRequest = { onShowReminderBottomSheet(false) },
                     sheetState = sheetState
                 ) {
-                    ReminderBottomSheetContent(onItemClicked = onReminderClicked)
+                    ReminderBottomSheetContent(
+                        onReminderItemClicked = {},
+                        onPickDateClicked = {
+                            onShowReminderBottomSheet(false)
+                            onShowDateTimeDialog(true)
+                        }
+                    )
                 }
             }
         }
@@ -120,7 +154,7 @@ fun NoteContent(
                     .fillMaxWidth(),
                 uiState = uiState,
                 onTitleChanged = onTitleChanged,
-                onNoteChanged = onNoteChanged
+                onNoteBodyChanged = onNoteChanged
             )
 
             NoteBottomComponent(
@@ -137,7 +171,18 @@ fun NoteContent(
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun NoteContentPreview(modifier: Modifier = Modifier) {
-    val uiState = NoteUiState()
-    NoteContent(uiState)
+fun NoteContentPreview() {
+    NoteContent(
+        uiState = NoteUiState(),
+        onNoteChanged = {},
+        onTitleChanged = {},
+        onDateChanged = {},
+        onTimeChanged = {},
+        onShowDateTimeDialog = {},
+        onShowTimePickerClicked = {},
+        onShowDatePickerClicked = {},
+        onShowReminderBottomSheet = {},
+        onBackClicked = {},
+        onSaveClicked = {}
+    )
 }

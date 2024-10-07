@@ -1,9 +1,12 @@
 package com.asad.noteapp.features.note.domain.usecase
 
-import com.asad.noteapp.features.note.domain.model.NoteModel
+import com.asad.noteapp.core.domain.note.model.NoteModel
+import com.asad.noteapp.features.note.domain.repository.NoteRepository
 import javax.inject.Inject
 
-class DeleteNoteUseCase @Inject constructor() {
-    suspend operator fun invoke(note: NoteModel) {
-    }
+class DeleteNoteUseCase @Inject constructor(
+    private val noteRepository: NoteRepository
+) {
+    suspend operator fun invoke(note: NoteModel) =
+        noteRepository.deleteNote(note = note)
 }
