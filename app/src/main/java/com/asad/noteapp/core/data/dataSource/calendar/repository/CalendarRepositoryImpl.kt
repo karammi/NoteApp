@@ -26,4 +26,14 @@ class CalendarRepositoryImpl @Inject constructor(
         calendarLocalDataSource.getFormattedDateRange(startTimeInMillis, endTimeInMillis)
 
     override fun getTodayDateInMillis(): Long = calendarLocalDataSource.getTodayDateInMillis()
+
+    override fun setDateTime(
+        dateInMillis: Long?,
+        hour: Int?,
+        minute: Int?
+    ): Long = calendarLocalDataSource.setDateTime(
+        dateInMillis = dateInMillis,
+        hour = hour,
+        minute = minute
+    )
 }

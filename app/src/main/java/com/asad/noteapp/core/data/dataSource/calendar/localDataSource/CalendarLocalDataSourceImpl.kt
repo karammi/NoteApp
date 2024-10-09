@@ -1,6 +1,5 @@
 package com.asad.noteapp.core.data.dataSource.calendar.localDataSource
 
-import android.util.Log
 import com.asad.noteapp.core.data.dataSource.calendar.localDataSource.util.DateConstants
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -47,18 +46,19 @@ class CalendarLocalDataSourceImpl @Inject constructor() : CalendarLocalDataSourc
         }
     }
 
-    override fun getTodayDateInMillis(): Long {
-        val time = Calendar.getInstance(Locale.getDefault()).timeInMillis
+    override fun getTodayDateInMillis(): Long =
+        Calendar.getInstance(Locale.getDefault()).timeInMillis
 
-        Log.d(TAG, "getTodayDate: ${getFormattedDateTime(time)}") //Wed, 09 October
-
-        Log.d(TAG, "getTodayDate: ${getDateForDisplay(time)}") //09 Oct, 24 05:54 PM
-
-        Log.d(TAG, "getTodayDate: ${getTimeInFormat(time)}") // 05:54 PM
-
-        Log.d(TAG, "getTodayDate: ${getDateForDisplay(time)}") //09 Oct, 24 05:54 PM
-
-        return time
+    override fun setDateTime(
+        dateInMillis: Long?,
+        hour: Int?,
+        minute: Int?
+    ): Long {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        dateInMillis?.let { calendar.timeInMillis = it }
+        hour?.let { calendar.set(Calendar.HOUR_OF_DAY, it) }
+        minute?.let { calendar.set(Calendar.MINUTE, it) }
+        return calendar.timeInMillis
     }
 }
 

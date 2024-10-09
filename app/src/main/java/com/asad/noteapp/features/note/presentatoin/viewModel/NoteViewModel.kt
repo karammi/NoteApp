@@ -19,8 +19,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "NoteViewModel"
-
 @HiltViewModel
 class NoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
@@ -54,7 +52,12 @@ class NoteViewModel @Inject constructor(
                 val todayInMillis = calendarUseCase.getTodayDateInMillis()
                 val date = calendarUseCase.getFormattedDateTime(todayInMillis)
                 val time = calendarUseCase.getTimeInFormat(todayInMillis)
-                currentUiState.copy(selectedDate = date, selectedTime = time)
+                currentUiState.copy(
+                    selectedDate = date,
+                    selectedTime = time,
+                    selectedDateInMillis = todayInMillis,
+                    selectedTimeInMillis = todayInMillis
+                )
             }
         }
     }
@@ -105,14 +108,31 @@ class NoteViewModel @Inject constructor(
         _uiState.update { currentState ->
             val formattedDate = calendarUseCase.getFormattedDateTime(dateInMillis)
             val currentNote = currentState.note?.copy(reminder = dateInMillis)
-            currentState.copy(note = currentNote, selectedDate = formattedDate)
+            currentState.copy(
+                note = currentNote,
+                selectedDate = formattedDate,
+                selectedDateInMillis = dateInMillis
+            )
         }
     }
 
-    fun onTimeSelected(timeInMillis: Long) {
+    fun onTimeSelected(hour: Int, minute: Int, isAfternoon: Boolean) {
         _uiState.update { currentState ->
-            val currentNote = currentState.note?.copy(reminder = timeInMillis)
-            currentState.copy(note = currentNote)
+
+            val selectedTimeInMillis = calendarUseCase.setDateTime(
+                hour = hour,
+                minute = minute,
+                dateInMillis = _uiState.value.selectedDateInMillis
+            )
+            val time = calendarUseCase.getTimeInFormat(selectedTimeInMillis)
+            currentState.copy(
+                isLoading = false,
+                selectedTimeInMillis = selectedTimeInMillis,
+                selectedTime = time,
+                selectedHour = hour,
+                selectedMinutes = minute,
+                isAfternoon = isAfternoon
+            )
         }
     }
 

@@ -10,5 +10,10 @@ data class NoteUiState(
     val showDateTimeDialog: Boolean = false,
     val showReminderBottomSheet: Boolean = false,
     val selectedDate: String? = null,
-    val selectedTime: String? = null
+    val selectedDateInMillis: Long? = null,
+    val selectedTime: String? = null,
+    val selectedTimeInMillis: Long? = null,
+    val selectedHour: Int? = null,
+    val selectedMinutes: Int? = null,
+    val isAfternoon: Boolean? = null
 )

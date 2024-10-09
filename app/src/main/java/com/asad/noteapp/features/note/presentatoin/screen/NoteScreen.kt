@@ -64,7 +64,7 @@ fun NoteContent(
     onTitleChanged: (String) -> Unit,
     onNoteChanged: (String) -> Unit,
     onDateChanged: (Long) -> Unit,
-    onTimeChanged: (Long) -> Unit,
+    onTimeChanged: (Int, Int, Boolean) -> Unit,
     onShowDateTimeDialog: (Boolean) -> Unit,
     onShowDatePickerClicked: (Boolean) -> Unit,
     onShowTimePickerClicked: (Boolean) -> Unit,
@@ -76,12 +76,12 @@ fun NoteContent(
 
     if (uiState.showDateTimeDialog == true)
         DateTimePickerDialog(
-            onDismiss = {
+            onCancel = {
                 onShowDateTimeDialog(false)
                 onShowDatePickerClicked(false)
                 onShowTimePickerClicked(false)
             },
-            onConfirm = {
+            onSave = {
                 onShowDateTimeDialog(false)
             },
             content = {
@@ -106,7 +106,11 @@ fun NoteContent(
 
     if (uiState.showTimePicker == true) {
         TimerPickerDialog(
-            onConfirm = { onTimeChanged(it.hour.toLong() * 3600000 + it.minute.toLong() * 60000) },
+            onConfirm = {
+//                onTimeChanged("${it.hour}:${it.minute} ${if (!it.isAfternoon) "AM" else "PM"}")
+                onTimeChanged(it.hour, it.minute, it.isAfternoon)
+                onShowTimePickerClicked(false)
+            },
             onDismiss = { onShowTimePickerClicked(false) }
         )
     }
@@ -177,7 +181,7 @@ fun NoteContentPreview() {
         onNoteChanged = {},
         onTitleChanged = {},
         onDateChanged = {},
-        onTimeChanged = {},
+        onTimeChanged = { _, _, _ -> },
         onShowDateTimeDialog = {},
         onShowTimePickerClicked = {},
         onShowDatePickerClicked = {},

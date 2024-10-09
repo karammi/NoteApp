@@ -14,4 +14,6 @@ interface CalendarRepository {
     fun getFormattedDateRange(startTimeInMillis: Long, endTimeInMillis: Long?): String
 
     fun getTodayDateInMillis(): Long
+
+    fun setDateTime(dateInMillis: Long?, hour: Int?, minute: Int?): Long
 }

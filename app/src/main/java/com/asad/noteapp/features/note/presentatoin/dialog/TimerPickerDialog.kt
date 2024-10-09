@@ -28,9 +28,7 @@ fun TimerPickerDialog(
         onDismiss = { onDismiss() },
         onConfirm = { onConfirm(timePickerState) }
     ) {
-        TimePicker(
-            state = timePickerState,
-        )
+        TimePicker(state = timePickerState)
     }
 }
 
