@@ -26,6 +26,9 @@ class CalendarUseCase @Inject constructor(
 
     fun getTodayDateInMillis(): Long = calendarRepository.getTodayDateInMillis()
 
+    fun getHourAndMinute(timeInMillis: Long?): Pair<Int, Int> =
+        calendarRepository.getHourAndMinute(timeInMillis)
+
     fun setDateTime(
         dateInMillis: Long?,
         hour: Int? = null,

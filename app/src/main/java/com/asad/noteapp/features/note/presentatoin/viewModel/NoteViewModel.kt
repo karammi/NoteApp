@@ -40,10 +40,10 @@ class NoteViewModel @Inject constructor(
         id = savedStateHandle.get<Int>(NavigationConstants.NOTE_ID)
         if (id == null || id == 0) {
             createNote()
-            setDefaultDateAndTime()
         } else {
             fetchNoteById()
         }
+        setDefaultDateAndTime()
     }
 
     fun setDefaultDateAndTime() {
@@ -52,11 +52,14 @@ class NoteViewModel @Inject constructor(
                 val todayInMillis = calendarUseCase.getTodayDateInMillis()
                 val date = calendarUseCase.getFormattedDateTime(todayInMillis)
                 val time = calendarUseCase.getTimeInFormat(todayInMillis)
+                val hourAndMinute = calendarUseCase.getHourAndMinute(todayInMillis)
                 currentUiState.copy(
                     selectedDate = date,
                     selectedTime = time,
                     selectedDateInMillis = todayInMillis,
-                    selectedTimeInMillis = todayInMillis
+                    selectedTimeInMillis = todayInMillis,
+                    selectedHour = hourAndMinute.first,
+                    selectedMinutes = hourAndMinute.second
                 )
             }
         }
@@ -118,7 +121,6 @@ class NoteViewModel @Inject constructor(
 
     fun onTimeSelected(hour: Int, minute: Int, isAfternoon: Boolean) {
         _uiState.update { currentState ->
-
             val selectedTimeInMillis = calendarUseCase.setDateTime(
                 hour = hour,
                 minute = minute,
@@ -133,6 +135,22 @@ class NoteViewModel @Inject constructor(
                 selectedMinutes = minute,
                 isAfternoon = isAfternoon
             )
+        }
+    }
+
+    fun onSaveDateTimeDialogClicked() {
+        viewModelScope.launch {
+            _uiState.update { currentUiState ->
+                val dateTimeInMills = calendarUseCase.setDateTime(
+                    dateInMillis = _uiState.value.selectedDateInMillis,
+                    hour = _uiState.value.selectedHour,
+                    minute = _uiState.value.selectedMinutes
+                )
+                val note = currentUiState.note?.copy(
+                    reminder = dateTimeInMills
+                )
+                currentUiState.copy(note = note)
+            }
         }
     }
 

@@ -7,7 +7,6 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
-private const val TAG = "CalendarLocal"
 
 class CalendarLocalDataSourceImpl @Inject constructor() : CalendarLocalDataSource {
 
@@ -48,6 +47,14 @@ class CalendarLocalDataSourceImpl @Inject constructor() : CalendarLocalDataSourc
 
     override fun getTodayDateInMillis(): Long =
         Calendar.getInstance(Locale.getDefault()).timeInMillis
+
+    override fun getHourAndMinute(timeInMillis: Long?): Pair<Int, Int> {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        timeInMillis?.let { calendar.timeInMillis = it }
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+        return Pair(hour, minute)
+    }
 
     override fun setDateTime(
         dateInMillis: Long?,

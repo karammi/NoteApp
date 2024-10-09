@@ -15,5 +15,7 @@ interface CalendarLocalDataSource {
 
     fun getTodayDateInMillis(): Long
 
+    fun getHourAndMinute(timeInMillis: Long?): Pair<Int, Int>
+
     fun setDateTime(dateInMillis: Long?, hour: Int?, minute: Int?): Long
 }

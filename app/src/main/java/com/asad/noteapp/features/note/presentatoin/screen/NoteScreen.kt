@@ -52,6 +52,7 @@ fun NoteScreen(
         onShowDateTimeDialog = viewModel::showDateTimeDialog,
         onShowTimePickerClicked = viewModel::onShowTimePicker,
         onShowReminderBottomSheet = viewModel::onShowReminderBottomSheet,
+        onSaveDateTimeDialogClicked = viewModel::onSaveDateTimeDialogClicked,
         onBackClicked = onBackClicked
     )
 }
@@ -69,6 +70,7 @@ fun NoteContent(
     onShowDatePickerClicked: (Boolean) -> Unit,
     onShowTimePickerClicked: (Boolean) -> Unit,
     onShowReminderBottomSheet: (Boolean) -> Unit,
+    onSaveDateTimeDialogClicked: () -> Unit,
     onSaveClicked: () -> Unit,
     onBackClicked: () -> Unit,
 ) {
@@ -83,6 +85,7 @@ fun NoteContent(
             },
             onSave = {
                 onShowDateTimeDialog(false)
+                onSaveDateTimeDialogClicked()
             },
             content = {
                 DateTimePickerDialogContent(
@@ -107,7 +110,6 @@ fun NoteContent(
     if (uiState.showTimePicker == true) {
         TimerPickerDialog(
             onConfirm = {
-//                onTimeChanged("${it.hour}:${it.minute} ${if (!it.isAfternoon) "AM" else "PM"}")
                 onTimeChanged(it.hour, it.minute, it.isAfternoon)
                 onShowTimePickerClicked(false)
             },
@@ -187,6 +189,7 @@ fun NoteContentPreview() {
         onShowDatePickerClicked = {},
         onShowReminderBottomSheet = {},
         onBackClicked = {},
+        onSaveDateTimeDialogClicked = {},
         onSaveClicked = {}
     )
 }

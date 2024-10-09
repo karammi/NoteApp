@@ -27,6 +27,9 @@ class CalendarRepositoryImpl @Inject constructor(
 
     override fun getTodayDateInMillis(): Long = calendarLocalDataSource.getTodayDateInMillis()
 
+    override fun getHourAndMinute(timeInMillis: Long?): Pair<Int, Int> =
+        calendarLocalDataSource.getHourAndMinute(timeInMillis)
+
     override fun setDateTime(
         dateInMillis: Long?,
         hour: Int?,
