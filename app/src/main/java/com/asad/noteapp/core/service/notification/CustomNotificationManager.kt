@@ -52,13 +52,6 @@ class CustomNotificationManager @Inject constructor() {
             getPendingIntent(NotificationConstants.REQUEST_CODE, pendingIntentFlag)
         }
 
-        val pendingIntent: PendingIntent = PendingIntent.getService(
-            context,
-            NotificationConstants.REQUEST_CODE,
-            intent,
-            pendingIntentFlag
-        )
-
         val notification = NotificationCompat.Builder(context, NotificationConstants.CHANNEL_ID)
             .setSmallIcon(R.mipmap.note_app_launcher)
             .setContentTitle(title)

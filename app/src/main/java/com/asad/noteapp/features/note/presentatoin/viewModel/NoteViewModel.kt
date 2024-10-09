@@ -37,6 +37,7 @@ class NoteViewModel @Inject constructor(
 
     //region Note Init blocks
     init {
+        showLoading(value = true)
         id = savedStateHandle.get<Int>(NavigationConstants.NOTE_ID)
         if (id == null || id == 0) {
             createNote()
@@ -44,6 +45,10 @@ class NoteViewModel @Inject constructor(
             fetchNoteById()
         }
         setDefaultDateAndTime()
+    }
+
+    fun showLoading(value: Boolean) {
+        _uiState.update { currentState -> currentState.copy(isLoading = value) }
     }
 
     fun setDefaultDateAndTime() {
@@ -83,11 +88,14 @@ class NoteViewModel @Inject constructor(
     private fun fetchNoteById() {
         viewModelScope.launch {
             if (id != null) {
-                fetchNoteUseCase(noteId = id!!)?.let { noteModel ->
+                val noteToEdit = fetchNoteUseCase(noteId = id!!)
+
+                noteToEdit?.let { noteModel ->
                     _uiState.emit(
                         value = NoteUiState(note = noteModelToNoteMapper.noteModelToNote(noteModel))
                     )
                 }
+                showLoading(false)
             }
         }
     }

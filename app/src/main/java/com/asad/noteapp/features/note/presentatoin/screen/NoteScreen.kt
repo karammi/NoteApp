@@ -25,7 +25,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.asad.noteapp.features.note.presentatoin.component.NoteBodyComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteBottomComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteToolbarComponent
-import com.asad.noteapp.features.note.presentatoin.component.ReminderBottomSheetContent
+import com.asad.noteapp.features.note.presentatoin.sheet.ReminderBottomSheetContent
 import com.asad.noteapp.features.note.presentatoin.dialog.DatePickerModal
 import com.asad.noteapp.features.note.presentatoin.dialog.DateTimePickerDialog
 import com.asad.noteapp.features.note.presentatoin.dialog.DateTimePickerDialogContent

@@ -29,7 +29,9 @@ fun NoteApp() {
         navController.navigate(Screen.NoteScreen.onCreateRoute(noteId ?: 0))
     }
 
-    val onBackClicked: () -> Unit = {}
+    val onBackClicked: () -> Unit = {
+        navController.navigateUp()
+    }
 
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(route = Screen.HomeScreen.route) {

@@ -71,7 +71,7 @@ fun HomeScreen(
         onCreateNoteClicked = onAddNoteClicked,
         onNoteClicked = onNoteClicked,
         onLayoutChanged = viewModel::updateListViewLayout,
-        onMenuClicked = {viewModel.startReminder(1,"test","alaaki")}
+        onMenuClicked = {}
     )
 
 }

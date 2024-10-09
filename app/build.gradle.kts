@@ -96,9 +96,13 @@ dependencies {
     implementation(libs.hilt.work)
     implementation(libs.material)
 
+    implementation(libs.kotlin.collection)
+
+    //coroutine_test
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.core.testing)
     testImplementation(libs.turbine)
     testImplementation(libs.google.truth)
+
 
 }
