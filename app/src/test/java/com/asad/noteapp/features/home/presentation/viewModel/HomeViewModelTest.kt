@@ -8,6 +8,8 @@ import org.junit.Test
 class HomeViewModelTest {
 
 
+    private lateinit var viewModel: HomeViewModel
+
     @Before
     fun setup(){
 
