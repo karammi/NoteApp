@@ -35,16 +35,18 @@ import org.junit.runner.RunWith
 )
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class BreedListFavoriteScenarioTest {
+class CreateNoteScenarioTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    private val permissionGranter = UiAutomationPermissionGranter()
+    private val permissionGranter =
+        UiAutomationPermissionGranter().addPermissions(android.Manifest.permission.POST_NOTIFICATIONS)
 
     val context = InstrumentationRegistry.getInstrumentation().targetContext
+
 
     @Before
     fun setup() {
@@ -55,11 +57,7 @@ class BreedListFavoriteScenarioTest {
                     .setMinimumLoggingLevel(Log.DEBUG)
                     .build()
             )
-
         composeTestRule.activity.setContent {
-            permissionGranter.addPermissions(
-                android.Manifest.permission.POST_NOTIFICATIONS,
-            )
             NoteApp()
         }
     }
