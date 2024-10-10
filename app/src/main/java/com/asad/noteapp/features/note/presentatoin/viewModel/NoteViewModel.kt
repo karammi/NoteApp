@@ -146,6 +146,13 @@ class NoteViewModel @Inject constructor(
         }
     }
 
+    fun onReminderItemClicked(timeInMillis: Long) {
+        _uiState.update { currentState ->
+            val note = currentState.note?.copy(reminder = timeInMillis)
+            currentState.copy(note = note)
+        }
+    }
+
     fun onSaveDateTimeDialogClicked() {
         viewModelScope.launch {
             _uiState.update { currentUiState ->

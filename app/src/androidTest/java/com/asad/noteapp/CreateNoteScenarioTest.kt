@@ -213,7 +213,8 @@ class BreedListFavoriteScenarioTest {
 
 
             /** TODO
-            1. steps to run scenario test
+             * steps to run scenario test::
+            1. asser node
             2. open sheet
             3. choose an item on sheet
             4. or choose pick a date
@@ -226,6 +227,32 @@ class BreedListFavoriteScenarioTest {
             11. register note with default date
              */
 
+
+
+//            1. asser node
+//            2. open sheet
+            waitUntil(3000) {
+                onAllNodesWithTag(context.getString(R.string.later_today_test_tag))
+                    .assertAny(matcher = hasTestTag(context.getString(R.string.later_today_test_tag)))
+                    .fetchSemanticsNodes()
+                    .size == 1
+            }
+
+            //assert item is displayed
+            onNodeWithTag(context.getString(R.string.later_today_test_tag))
+                .assertIsDisplayed()
+
+            onNodeWithTag(context.getString(R.string.later_today_test_tag))
+                .performClick()
+
+
+            /** TODO
+             * steps to run scenario test::
+            3. choose an item on sheet
+            9. save that time
+            10. save that note
+            11. register note with default date
+             */
 
             ///dialog
 //            waitUntil(3000) {
