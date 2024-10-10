@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.asad.noteapp.R
 
@@ -16,11 +18,12 @@ fun ReminderBottomSheetContent(
     ReminderBottomSheetItemComponent(
         modifier = Modifier
             .height(50.dp)
+            .testTag(tag = stringResource(R.string.later_today_test_tag))
             .padding(
                 horizontal = 24.dp,
                 vertical = 8.dp
             ),
-        title = "Later Today",
+        title = stringResource(R.string.later_today_label),
         detail = "6:30 PM",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
@@ -30,11 +33,12 @@ fun ReminderBottomSheetContent(
     ReminderBottomSheetItemComponent(
         modifier = Modifier
             .height(50.dp)
+            .testTag(tag = stringResource(R.string.tomorrow_morning_test_tag))
             .padding(
                 horizontal = 24.dp,
                 vertical = 8.dp
             ),
-        title = "Tomorrow Morning",
+        title = stringResource(R.string.tomorrow_morning),
         detail = "6:30 PM",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
@@ -44,11 +48,12 @@ fun ReminderBottomSheetContent(
     ReminderBottomSheetItemComponent(
         modifier = Modifier
             .height(50.dp)
+            .testTag(tag = stringResource(R.string.home_test_tag))
             .padding(
                 horizontal = 24.dp,
                 vertical = 8.dp
             ),
-        title = "Home",
+        title = stringResource(R.string.home_label),
         detail = "Tehran",
         leadingResIcon = R.drawable.ic_clock,
         showDivider = true,
@@ -58,11 +63,12 @@ fun ReminderBottomSheetContent(
     ReminderBottomSheetItemComponent(
         modifier = Modifier
             .height(50.dp)
+            .testTag(tag = stringResource(R.string.pick_a_date_test_tag))
             .padding(
                 horizontal = 24.dp,
                 vertical = 8.dp
             ),
-        title = "Pick a Date",
+        title = stringResource(R.string.pick_a_date_label),
         detail = null,
         leadingResIcon = R.drawable.ic_calendar,
         showDivider = false,
