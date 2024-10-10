@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">NoteApp</string>
+    <string name="app_name">Heli Note App</string>
+
+    <!--HomeScreen-->
+    <string name="create_note_app" formatted="true">Create New Note %s</string>
+    <string name="recent_all_notes" formatted="true">Recent Notes %s</string>
+    <string name="labels">Labels</string>
+
+    <!--NoteScreen-->
+    <string name="note_title">Note</string>
+
+
+    <!--Content Description Or Tags-->
+    <!--HomeScreen-->
+    <string name="img_create_note">img_create_note</string>
+    <string name="bottom_actions">bottom_actions</string>
+    <string name="top_app_bar">top_app_bar</string>
+    <string name="add_note">add_note</string>
+    <string name="ic_label">ic_label</string>
+    <string name="title_label">Title</string>
+
+    <!--NoteScreen-Tag-->
+    <string name="title_test_tag">title_test_tag</string>
+    <string name="note_test_tag">note_test_tag</string>
+    <string name="note_place_holder_test_tag">note_place_holder_test_tag</string>
+    <string name="this_is_note_body_test_example">This is note body</string>
+    <string name="note_title_test_example">note title</string>
+    <string name="note_bottom_component">note_bottom_component</string>
+    <string name="ic_tag">ic_label</string>
+    <string name="labels_title">Labels</string>
+    <string name="fab_aff_note_content_desc">add</string>
+    <string name="fab_test_tag">fab_test_tag</string>
+    <string name="create_note_test_tag">create_note_test_tag</string>
+    <string name="reminder_content_desc">reminder</string>
+    <string name="layout_content_desc">layout</string>
+    <string name="inbox_content_desc">inbox</string>
+    <string name="save_button_text_test_teg">save_button_test_teg</string>
+    <string name="cancel_button_text_test_tag">cancel_button_test_tag</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="save_label">Save</string>
+    <string name="save_button_test_tag">save_button_test_tag</string>
+    <string name="calendar_dialog_test_tag">calendar_dialog_test_tag</string>
+
 </resources>
