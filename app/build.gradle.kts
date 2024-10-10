@@ -100,9 +100,11 @@ dependencies {
     kaptTest(libs.dagger.hilt.compiler)
     testImplementation(libs.room.testing)
 
-    // For instrumented tests.
     androidTestImplementation(libs.hilt.android.testing)
-    // ...with Kotlin.
     kaptAndroidTest(libs.dagger.hilt.compiler)
+
+    testImplementation(libs.mockk)
+
+
 
 }
