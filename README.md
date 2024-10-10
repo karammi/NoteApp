@@ -16,18 +16,10 @@ The app is developed following the principles of Clean Architecture to ensure sc
 
     
 ## Color Palette
-| Color              | Hex                                                                |
-|--------------------| ------------------------------------------------------------------ |
-| Primary Color      | ![#205fa6](http://via.placeholder.com/10/303F9F/303F9F) #205fa6 |
-| OnPrimary Color    | ![#ffffff](http://via.placeholder.com/10/1A237E/1A237E) #ffffff |
-| Secondary Color    | ![#555f71](http://via.placeholder.com/10/FFA61C/FFA61C) #555f71 |
-| OnSecondary Color  | ![#ffffff](http://via.placeholder.com/10/FF8741/FF8741) #ffffff |
-| Surface Color      | ![#fdfbff](http://via.placeholder.com/10/FFFFFF/FFFFFF) #fdfbff |
-| OnSurface Color    | ![#1b1b1d](http://via.placeholder.com/10/FFFFFF/FFFFFF) #1b1b1d |
-| Tertiary Color     | ![#1b1b1d](http://via.placeholder.com/10/FFFFFF/FFFFFF) #6e5676 |
-| OnTertiary Color   | ![#1b1b1d](http://via.placeholder.com/10/FFFFFF/FFFFFF) #ffffff |
-| Background Color   | ![#1b1b1d](http://via.placeholder.com/10/FFFFFF/FFFFFF) #fdfbff |
-| OnBackground Color | ![#1b1b1d](http://via.placeholder.com/10/FFFFFF/FFFFFF) #1b1b1d |
+| Color              | Hex                                                             |
+|--------------------| --------------------------------------------------------------- |
+| Primary Color      | ![#2284F9](http://via.placeholder.com/10/303F9F/303F9F) #2284F9 |
+
 
 
 ## Download APK
