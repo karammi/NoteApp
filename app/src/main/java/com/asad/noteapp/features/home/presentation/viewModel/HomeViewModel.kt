@@ -32,8 +32,12 @@ class HomeViewModel @Inject constructor(
     fun fetchNotes() {
         viewModelScope.launch {
             fetchNotesUseCase()
-                .map { notes -> notes.map { note -> noteModelToNote(note) } }
-                .collect { notes -> updateUiState(notes = notes) }
+                .map {
+                    notes -> notes.map { note -> noteModelToNote(note) }
+                }
+                .collect {
+                    notes -> updateUiState(notes = notes)
+                }
         }
     }
 
