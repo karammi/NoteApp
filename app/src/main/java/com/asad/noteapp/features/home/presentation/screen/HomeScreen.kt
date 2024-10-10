@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -93,7 +94,9 @@ fun HomeContent(
                 title = {},
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                 actions = { NoteToolbarComponent(uiState, onLayoutChanged, onMenuClicked) },
-                modifier = Modifier.border(1.dp, Color.LightGray)
+                modifier = Modifier
+                    .testTag("topAppBar")
+                    .border(1.dp, Color.LightGray)
             )
         },
         modifier = Modifier.fillMaxSize()
@@ -103,6 +106,7 @@ fun HomeContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .testTag("bottom_actions")
                     .padding(paddingValue),
                 contentAlignment = Alignment.Center
             ) {
@@ -116,13 +120,14 @@ fun HomeContent(
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_menu_board),
-                        contentDescription = "add task",
+                        contentDescription = "img_create_note",
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "Create New Note",
                         textAlign = TextAlign.Center,
+
                     )
                 }
             }

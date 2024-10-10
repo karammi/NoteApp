@@ -17,12 +17,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.asad.noteapp.app.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-
-//        multiDexEnabled = true
     }
 
     buildTypes {
@@ -44,11 +42,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeCompiler {
-        enableStrongSkippingMode = true
-    }
-
-
     packaging {
         resources {
             excludes += "/META-INF/gradle/incremental.annotation.processors"
@@ -104,5 +97,11 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.google.truth)
 
+    kaptTest(libs.dagger.hilt.compiler)
+    testImplementation(libs.room.testing)
 
+    // For instrumented tests.
+    androidTestImplementation(libs.hilt.android.testing)
+    // ...with Kotlin.
+    kaptAndroidTest(libs.dagger.hilt.compiler)
 }
