@@ -2,8 +2,9 @@ package com.asad.noteapp.features.home.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.asad.noteapp.core.data.dataSource.calendar.repository.CalendarRepositoryImpl
+import com.asad.noteapp.core.domain.note.model.NoteModel
 import com.asad.noteapp.features.home.domain.usecase.FetchNotesUseCase
-import com.asad.noteapp.features.home.domain.mapper.NoteModelToNoteMapper
 import com.asad.noteapp.features.home.presentation.model.HomeUiState
 import com.asad.noteapp.features.home.presentation.model.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val fetchNotesUseCase: FetchNotesUseCase,
-    private val noteModelToNoteMapper: NoteModelToNoteMapper,
+    private val calendarRepository: CalendarRepositoryImpl
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -31,8 +32,12 @@ class HomeViewModel @Inject constructor(
     fun fetchNotes() {
         viewModelScope.launch {
             fetchNotesUseCase()
-                .map { it.map { noteModelToNoteMapper.noteModelToNote(it) } }
-                .collect { notes -> updateUiState(notes = notes) }
+                .map {
+                    notes -> notes.map { note -> noteModelToNote(note) }
+                }
+                .collect {
+                    notes -> updateUiState(notes = notes)
+                }
         }
     }
 
@@ -48,5 +53,22 @@ class HomeViewModel @Inject constructor(
 
     fun updateListViewLayout(useGridLayout: Boolean) {
         _uiState.update { currentState -> currentState.copy(isGridLayout = useGridLayout) }
+    }
+
+    fun noteModelToNote(noteModel: NoteModel): Note {
+        return with(noteModel) {
+            Note(
+                id = id,
+                title = title,
+                note = note,
+                createDate = createDate,
+                tags = tags,
+                reminder = reminder,
+                color = color,
+                hasReminder = reminder != null && reminder != 0L,
+                hasTag = !tags.isNullOrEmpty(),
+                reminderDateTime = reminder?.let { calendarRepository.getFormattedDateTime(it) }
+            )
+        }
     }
 }
