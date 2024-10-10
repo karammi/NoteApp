@@ -1,5 +1,6 @@
 package com.asad.noteapp
 
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
@@ -15,6 +16,8 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.permission.UiAutomationPermissionGranter
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import com.asad.noteapp.app.MainActivity
 import com.asad.noteapp.app.navigation.NoteApp
 import com.asad.noteapp.core.di.module.DatabaseModule
@@ -32,14 +35,15 @@ import org.junit.runner.RunWith
 )
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class BreedListFavoriteScenarioTest {
+class CreateNoteScenarioTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    private val permissionGranter = UiAutomationPermissionGranter()
+    private val permissionGranter =
+        UiAutomationPermissionGranter().addPermissions(android.Manifest.permission.POST_NOTIFICATIONS)
 
     val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -47,10 +51,13 @@ class BreedListFavoriteScenarioTest {
     @Before
     fun setup() {
         hiltRule.inject()
-        composeTestRule.activity.setContent {
-            permissionGranter.addPermissions(
-                android.Manifest.permission.POST_NOTIFICATIONS,
+        if (!WorkManager.isInitialized())
+            WorkManager.initialize(
+                context, Configuration.Builder()
+                    .setMinimumLoggingLevel(Log.DEBUG)
+                    .build()
             )
+        composeTestRule.activity.setContent {
             NoteApp()
         }
     }
@@ -140,6 +147,7 @@ class BreedListFavoriteScenarioTest {
 
     @Test
     fun scenarioOfCreateNoteAndShowNoteOnHomeScreenWithSetReminder() {
+
         composeTestRule.apply {
             onNodeWithContentDescription(context.getString(R.string.add_note)).assertExists()
 
@@ -228,7 +236,6 @@ class BreedListFavoriteScenarioTest {
              */
 
 
-
 //            1. asser node
 //            2. open sheet
             waitUntil(3000) {
@@ -263,7 +270,7 @@ class BreedListFavoriteScenarioTest {
 //            }
 
 
-            /*onNodeWithTag(testTag = context.getString(R.string.fab_test_tag))
+            onNodeWithTag(testTag = context.getString(R.string.fab_test_tag))
                 .assertIsDisplayed()
 
             onNodeWithTag(testTag = context.getString(R.string.fab_test_tag))
@@ -274,7 +281,7 @@ class BreedListFavoriteScenarioTest {
                     .assertAny(matcher = hasTestTag(context.getString(R.string.create_note_test_tag)))
                     .fetchSemanticsNodes()
                     .size == 1
-            }*/
+            }
         }
     }
 }
