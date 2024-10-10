@@ -44,8 +44,8 @@
     <string name="later_today_test_tag">later_today_test_tag</string>
     <string name="tomorrow_morning">Tomorrow Morning</string>
     <string name="tomorrow_morning_test_tag">Tomorrow Morning Test Tag</string>
-    <string name="home_label">Home</string>
-    <string name="home_test_tag">home_test_tag</string>
+    <string name="next_week_label">Next Week</string>
+    <string name="next_week_test_tag">next_week_test_tag</string>
     <string name="pick_a_date_label">Pick a Date</string>
     <string name="pick_a_date_test_tag">Pick a Date</string>
 

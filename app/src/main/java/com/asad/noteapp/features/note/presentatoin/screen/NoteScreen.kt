@@ -56,6 +56,7 @@ fun NoteScreen(
         onShowTimePickerClicked = viewModel::onShowTimePicker,
         onShowReminderBottomSheet = viewModel::onShowReminderBottomSheet,
         onSaveDateTimeDialogClicked = viewModel::onSaveDateTimeDialogClicked,
+        onReminderItemClicked = viewModel::onReminderItemClicked,
         onBackClicked = onBackClicked
     )
 }
@@ -73,6 +74,7 @@ fun NoteContent(
     onShowDatePickerClicked: (Boolean) -> Unit,
     onShowTimePickerClicked: (Boolean) -> Unit,
     onShowReminderBottomSheet: (Boolean) -> Unit,
+    onReminderItemClicked:(Long)-> Unit,
     onSaveDateTimeDialogClicked: () -> Unit,
     onSaveClicked: () -> Unit,
     onBackClicked: () -> Unit,
@@ -140,7 +142,7 @@ fun NoteContent(
                     sheetState = sheetState
                 ) {
                     ReminderBottomSheetContent(
-                        onReminderItemClicked = {},
+                        onReminderItemClicked = onReminderItemClicked,
                         onPickDateClicked = {
                             onShowReminderBottomSheet(false)
                             onShowDateTimeDialog(true)
@@ -197,6 +199,7 @@ fun NoteContentPreview() {
         onShowReminderBottomSheet = {},
         onBackClicked = {},
         onSaveDateTimeDialogClicked = {},
-        onSaveClicked = {}
+        onSaveClicked = {},
+        onReminderItemClicked = {_->}
     )
 }
