@@ -74,7 +74,7 @@ fun NoteContent(
     onShowDatePickerClicked: (Boolean) -> Unit,
     onShowTimePickerClicked: (Boolean) -> Unit,
     onShowReminderBottomSheet: (Boolean) -> Unit,
-    onReminderItemClicked:(Long)-> Unit,
+    onReminderItemClicked: (Long) -> Unit,
     onSaveDateTimeDialogClicked: () -> Unit,
     onSaveClicked: () -> Unit,
     onBackClicked: () -> Unit,
@@ -142,7 +142,10 @@ fun NoteContent(
                     sheetState = sheetState
                 ) {
                     ReminderBottomSheetContent(
-                        onReminderItemClicked = onReminderItemClicked,
+                        onReminderItemClicked = {
+                            onShowReminderBottomSheet(false)
+                            onReminderItemClicked(it)
+                        },
                         onPickDateClicked = {
                             onShowReminderBottomSheet(false)
                             onShowDateTimeDialog(true)
@@ -200,6 +203,6 @@ fun NoteContentPreview() {
         onBackClicked = {},
         onSaveDateTimeDialogClicked = {},
         onSaveClicked = {},
-        onReminderItemClicked = {_->}
+        onReminderItemClicked = { _ -> }
     )
 }

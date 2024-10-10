@@ -20,21 +20,21 @@ fun ReminderBottomSheetContent(
     onReminderItemClicked: (Long) -> Unit,
     onPickDateClicked: () -> Unit
 ) {
-    val laterTimeValue = remember {
+    val laterTimeValue = remember(key1 = Unit) {
         val calendar = Calendar.getInstance(Locale.getDefault())
         calendar.add(Calendar.HOUR, 1)
         val sdf = SimpleDateFormat(DateConstants.TIME_FORMAT, Locale.getDefault())
         sdf.format(calendar.timeInMillis) to calendar.timeInMillis
     }
 
-    val tomorrowTimeValue = remember {
+    val tomorrowTimeValue = remember(key1 = Unit) {
         val calendar = Calendar.getInstance(Locale.getDefault())
         calendar.add(Calendar.DAY_OF_MONTH, 1)
         val sdf = SimpleDateFormat(DateConstants.TIME_FORMAT, Locale.getDefault())
         sdf.format(calendar.timeInMillis) to calendar.timeInMillis
     }
 
-    val nextWeekTimeValue = remember {
+    val nextWeekTimeValue = remember(key1 = Unit) {
         val calendar = Calendar.getInstance(Locale.getDefault())
         calendar.add(Calendar.WEEK_OF_YEAR, 1)
         val sdf = SimpleDateFormat(DateConstants.TIME_FORMAT, Locale.getDefault())
