@@ -11,31 +11,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.asad.noteapp.R
 
 @Composable
 fun DateTimePickerDialog(
+    modifier: Modifier = Modifier,
     onCancel: () -> Unit,
     onSave: () -> Unit,
     content: @Composable () -> Unit
 ) {
     AlertDialog(
+        modifier = modifier
+            .testTag(stringResource(R.string.calendar_dialog_test_tag)),
         onDismissRequest = onCancel,
         dismissButton = {
             TextButton(onClick = { onCancel() }) {
-                Text("Cancel")
+                Text(
+                    text = stringResource(R.string.cancel_label),
+                    modifier = Modifier.testTag(stringResource(R.string.cancel_button_text_test_tag))
+                )
             }
         },
         confirmButton = {
             TextButton(
+                modifier = Modifier.testTag(stringResource(R.string.save_button_test_tag)),
                 onClick = { onSave() }
             ) {
                 Text(
-                    "Save",
+                    text = stringResource(R.string.save_label),
                     modifier = Modifier
                         .width(60.dp)
                         .height(30.dp)
+                        .testTag(stringResource(R.string.save_button_text_test_teg))
                         .clip(shape = RoundedCornerShape(16.dp))
                         .background(Color(0xff3384F9)),
                     textAlign = TextAlign.Center

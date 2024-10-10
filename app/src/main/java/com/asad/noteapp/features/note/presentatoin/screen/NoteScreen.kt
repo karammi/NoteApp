@@ -18,10 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.asad.noteapp.R
 import com.asad.noteapp.features.note.presentatoin.component.NoteBodyComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteBottomComponent
 import com.asad.noteapp.features.note.presentatoin.component.NoteToolbarComponent
@@ -167,9 +170,13 @@ fun NoteContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(110.dp)
+                    .testTag(tag = stringResource(R.string.note_bottom_component))
                     .shadow(1.dp, shape = RoundedCornerShape(1.dp))
                     .align(alignment = Alignment.BottomCenter),
-                onSaveClicked = onSaveClicked
+                onSaveClicked = {
+                    onSaveClicked()
+                    onBackClicked()
+                }
             )
         }
     }

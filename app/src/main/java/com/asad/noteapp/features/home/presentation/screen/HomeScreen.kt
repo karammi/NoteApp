@@ -207,6 +207,7 @@ fun HomeContent(
 
                     FloatingActionButton(
                         modifier = Modifier
+                            .testTag(tag = stringResource(R.string.create_note_test_tag))
                             .size(48.dp),
                         onClick = onCreateNoteClicked,
                         shape = CircleShape,

@@ -104,4 +104,5 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     // ...with Kotlin.
     kaptAndroidTest(libs.dagger.hilt.compiler)
+
 }

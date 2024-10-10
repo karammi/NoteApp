@@ -17,7 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asad.noteapp.R
 
@@ -39,17 +42,18 @@ fun NoteBottomComponent(
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_tag),
-                contentDescription = "ic_label"
+                contentDescription = stringResource(R.string.ic_tag)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            Text(text = "Labels")
+            Text(text = stringResource(R.string.labels_title))
 
             Spacer(modifier = Modifier.width(12.dp))
 
             FloatingActionButton(
                 modifier = Modifier
+                    .testTag(tag = stringResource(R.string.fab_test_tag))
                     .size(48.dp),
                 onClick = onSaveClicked,
                 shape = CircleShape,
@@ -57,14 +61,15 @@ fun NoteBottomComponent(
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_tick_circle),
-                    contentDescription = "add",
+                    contentDescription = stringResource(R.string.fab_aff_note_content_desc),
                 )
             }
         }
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun NoteBottomComponent() {
-    NoteBottomComponent (onSaveClicked = {})
+fun NoteBottomComponentPreview() {
+    NoteBottomComponent(onSaveClicked = {})
 }
