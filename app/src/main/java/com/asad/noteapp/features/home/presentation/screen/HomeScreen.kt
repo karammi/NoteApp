@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -95,7 +96,7 @@ fun HomeContent(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                 actions = { NoteToolbarComponent(uiState, onLayoutChanged, onMenuClicked) },
                 modifier = Modifier
-                    .testTag("topAppBar")
+                    .testTag(stringResource(R.string.top_app_bar))
                     .border(1.dp, Color.LightGray)
             )
         },
@@ -106,7 +107,7 @@ fun HomeContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .testTag("bottom_actions")
+                    .testTag(stringResource(R.string.bottom_actions))
                     .padding(paddingValue),
                 contentAlignment = Alignment.Center
             ) {
@@ -120,14 +121,13 @@ fun HomeContent(
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_menu_board),
-                        contentDescription = "img_create_note",
+                        contentDescription = stringResource(R.string.img_create_note),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "Create New Note",
-                        textAlign = TextAlign.Center,
-
+                        text = stringResource(R.string.create_note_app, Emoji.eye),
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -140,7 +140,7 @@ fun HomeContent(
 
         ) {
             Text(
-                text = "Recent All Note ${Emoji.eye}",
+                text = stringResource(R.string.recent_all_notes, Emoji.blackCat),
                 color = Color.Black,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -171,7 +171,7 @@ fun HomeContent(
                     }
                 ),
             ) {
-                itemsIndexed(uiState.value.notes) { index: Int, item: Note ->
+                itemsIndexed(uiState.value.notes) { _: Int, item: Note ->
                     NoteItemComponent(
                         modifier = Modifier,
                         note = item,
@@ -196,12 +196,12 @@ fun HomeContent(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_tag),
-                        contentDescription = "ic_label"
+                        contentDescription = stringResource(R.string.ic_label)
                     )
 
                     Spacer(modifier = Modifier.width(12.dp))
 
-                    Text(text = "Labels")
+                    Text(text = stringResource(R.string.labels))
 
                     Spacer(modifier = Modifier.width(12.dp))
 
@@ -214,7 +214,7 @@ fun HomeContent(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = "add",
+                            contentDescription = stringResource(R.string.add_note),
                             tint = Color.White
                         )
                     }

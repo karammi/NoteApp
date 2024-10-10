@@ -13,8 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asad.noteapp.R
 import com.asad.noteapp.features.note.presentatoin.model.NoteUiState
 
 @Composable
@@ -37,16 +40,23 @@ fun NoteBodyComponent(
             .fillMaxWidth()
     ) {
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(stringResource(R.string.title_label)),
             value = title.value,
             onValueChange = onTitleChanged,
-            placeholder = { Text(text = "Title") },
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.title_label),
+                    modifier = Modifier.testTag(stringResource(R.string.title_test_tag))
+                )
+            },
             colors = TextFieldDefaults.colors(
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent
-            )
+            ),
         )
 
         HorizontalDivider(
@@ -59,11 +69,15 @@ fun NoteBodyComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
+                .testTag(stringResource(R.string.note_test_tag))
                 .padding(bottom = 110.dp),
             value = noteBody.value,
             onValueChange = onNoteBodyChanged,
             placeholder = {
-                Text(text = "Note")
+                Text(
+                    text = stringResource(R.string.note_title),
+                    modifier = Modifier.testTag(stringResource(R.string.note_place_holder_test_tag))
+                )
             },
             colors = TextFieldDefaults.colors(
                 unfocusedIndicatorColor = Color.Transparent,

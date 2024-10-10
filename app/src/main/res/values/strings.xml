@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">Heli Note App</string>
+
+    <!--HomeScreen-->
+    <string name="create_note_app" formatted="true">Create New Note %s</string>
+    <string name="recent_all_notes" formatted="true">Recent Notes %s</string>
+    <string name="labels">Labels</string>
+
+    <!--NoteScreen-->
+    <string name="note_title">Note</string>
+
+
+    <!--Content Description Or Tags-->
+    <!--HomeScreen-->
+    <string name="img_create_note">img_create_note</string>
+    <string name="bottom_actions">bottom_actions</string>
+    <string name="top_app_bar">top_app_bar</string>
+    <string name="add_note">add_note</string>
+    <string name="ic_label">ic_label</string>
+    <string name="title_label">Title</string>
+
+    <!--NoteScreen-Tag-->
+    <string name="title_test_tag">title_test_tag</string>
+    <string name="note_test_tag">note_test_tag</string>
+    <string name="note_place_holder_test_tag">note_place_holder_test_tag</string>
+    <string name="this_is_note_body_test_example">This is note body</string>
+    <string name="note_title_test_example">note title</string>
+
 </resources>

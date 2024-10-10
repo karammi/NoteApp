@@ -26,14 +26,13 @@ fun RequestPermission() {
             if (isGranted) {
                 // Permission granted: Do something
             } else {
-                // Permission denied: Handle the denial
+                // Permission denied:
             }
         }
 
     SideEffect {
         if (ContextCompat.checkSelfPermission(
-                context,
-                POST_NOTIFICATIONS_PERMISSION
+                context, POST_NOTIFICATIONS_PERMISSION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissionLauncher.launch(POST_NOTIFICATIONS_PERMISSION)
