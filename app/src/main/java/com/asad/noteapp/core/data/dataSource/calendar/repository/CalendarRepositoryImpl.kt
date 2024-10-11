@@ -10,20 +10,8 @@ class CalendarRepositoryImpl @Inject constructor(
     override fun getFormattedDateTime(timeInMillis: Long): String =
         calendarLocalDataSource.getFormattedDateTime(timeInMillis)
 
-    override fun getTimeDifferenceInMillis(timeInMillis: Long): Long =
-        calendarLocalDataSource.getTimeDifferenceInMillis(timeInMillis)
-
-    override fun getDateForDisplay(timeInMillis: Long): String =
-        calendarLocalDataSource.getDateForDisplay(timeInMillis)
-
-    override fun getDateOverview(timeInMillis: Long): String =
-        calendarLocalDataSource.getDateForListOverview(timeInMillis)
-
     override fun getTimeInFormat(timeInMillis: Long): String =
         calendarLocalDataSource.getTimeInFormat(timeInMillis)
-
-    override fun getFormattedDateRange(startTimeInMillis: Long, endTimeInMillis: Long?): String =
-        calendarLocalDataSource.getFormattedDateRange(startTimeInMillis, endTimeInMillis)
 
     override fun getTodayDateInMillis(): Long = calendarLocalDataSource.getTodayDateInMillis()
 
@@ -39,4 +27,5 @@ class CalendarRepositoryImpl @Inject constructor(
         hour = hour,
         minute = minute
     )
+
 }
