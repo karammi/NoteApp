@@ -6,6 +6,7 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.asad.noteapp.core.service.notification.CustomNotificationManager
 import com.asad.noteapp.core.service.services.ReminderService
+import com.asad.noteapp.core.service.services.SetAlarmWorker
 import javax.inject.Inject
 
 class CustomWorkerFactory @Inject constructor(
@@ -16,6 +17,10 @@ class CustomWorkerFactory @Inject constructor(
         workerClassName: String,
         workerParameters: WorkerParameters
     ): ListenableWorker =
+//        SetAlarmWorker(
+//            context = appContext,
+//            workerParams = workerParameters,
+//        )
         ReminderService(
             context = appContext,
             params = workerParameters,

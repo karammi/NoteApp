@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 private const val POST_NOTIFICATIONS_PERMISSION = Manifest.permission.POST_NOTIFICATIONS
+private const val ALARM_MANAGER_PERMISSION = Manifest.permission.SET_ALARM
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -31,11 +32,28 @@ fun RequestPermission() {
         }
 
     SideEffect {
+        val permissionsToRequest = mutableListOf<String>()
         if (ContextCompat.checkSelfPermission(
                 context, POST_NOTIFICATIONS_PERMISSION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            requestPermissionLauncher.launch(POST_NOTIFICATIONS_PERMISSION)
+            permissionsToRequest.add(POST_NOTIFICATIONS_PERMISSION)
         }
+        if (ContextCompat.checkSelfPermission(
+                context, ALARM_MANAGER_PERMISSION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionsToRequest.add(ALARM_MANAGER_PERMISSION)
+        }
+
+        permissionsToRequest.forEach { permission ->
+            requestPermissionLauncher.launch(permission)
+        }
+        /*  if (ContextCompat.checkSelfPermission(
+                  context, POST_NOTIFICATIONS_PERMISSION
+              ) != PackageManager.PERMISSION_GRANTED
+          ) {
+              requestPermissionLauncher.launch(POST_NOTIFICATIONS_PERMISSION)
+          }*/
     }
 }
