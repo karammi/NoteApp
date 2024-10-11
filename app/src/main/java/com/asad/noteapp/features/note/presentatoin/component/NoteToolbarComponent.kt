@@ -53,7 +53,7 @@ fun RowScope.NoteToolbarComponent(
     Spacer(modifier = Modifier.width(8.dp))
 }
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun NoteToolbarComponentPreview() {
     Row {
