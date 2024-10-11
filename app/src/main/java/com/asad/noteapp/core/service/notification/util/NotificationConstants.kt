@@ -11,4 +11,5 @@ object NotificationConstants {
     const val ID_KEY = "id"
     const val TITLE_KEY = "title"
     const val NOTE_KEY = "note"
+    const val REMINDER_KEY = "reminder"
 }

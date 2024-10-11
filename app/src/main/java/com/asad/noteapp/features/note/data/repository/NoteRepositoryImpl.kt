@@ -23,7 +23,8 @@ class NoteRepositoryImpl @Inject constructor(
             reminderLauncher.setReminder(
                 noteId = 0,
                 noteTitle = note.title,
-                noteBody = note.note
+                noteBody = note.note,
+                reminder = note.reminder
             )
     }
 
