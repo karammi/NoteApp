@@ -71,5 +71,8 @@ fun NoteBottomComponent(
 @Preview(showBackground = true)
 @Composable
 fun NoteBottomComponentPreview() {
-    NoteBottomComponent(onSaveClicked = {})
+    NoteBottomComponent(
+        modifier = Modifier.padding(horizontal = 24.dp),
+        onSaveClicked = {}
+    )
 }
