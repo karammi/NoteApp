@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
 
         processIntent(intent = intent)
         setContent {
-            NoteAppTheme() {
+            NoteAppTheme {
                 NoteApp()
             }
         }

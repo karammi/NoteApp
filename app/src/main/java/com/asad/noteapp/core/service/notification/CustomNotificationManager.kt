@@ -12,6 +12,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -23,8 +24,13 @@ import com.asad.noteapp.core.service.notification.util.NotificationConstants
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val TAG = "CustomNotificationManager"
 @Singleton
 class CustomNotificationManager @Inject constructor() {
+
+    init {
+        Log.d(TAG, "CustomNotificationManager: called")
+    }
 
     @SuppressLint("MissingPermission", "LaunchActivityFromNotification")
     fun showNotification(
@@ -34,7 +40,7 @@ class CustomNotificationManager @Inject constructor() {
         note: String
     ) {
         createNotificationChannel(context)
-
+        Log.d(TAG, "showNotification: has been called")
         val intentUri = Uri.parse(DEEP_LINK_BASE).buildUpon()
             .appendPath(NavigationConstants.NOTE_ID)
             .build()
@@ -63,6 +69,7 @@ class CustomNotificationManager @Inject constructor() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
+        Log.d(TAG, "showNotification: $title, $note, $id")
         if (checkPermissionIsGranted(context)) {
             NotificationManagerCompat.from(context).notify(id, notification)
         }

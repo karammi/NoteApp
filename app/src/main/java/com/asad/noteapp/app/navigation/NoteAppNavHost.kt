@@ -20,7 +20,7 @@ const val DEEP_LINK_BASE = "open://noteapp"
 fun NoteApp() {
     val navController = rememberNavController()
 
-    RequestPermission()
+    RequestPermission(onPermissionGranted = {}, onPermissionDenied = {})
 
     /**
      * this function type is used to navigate to [Screen.NoteScreen]
