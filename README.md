@@ -32,12 +32,13 @@ These are some of the technical topics of the application. Read more about them 
 below.
 
 - Dependency Injection Using Hilt
-- Room Datebase
+- Room Database
 - Structured Concurrency
 - Compose UiToolkit
 - String Obfuscation(doing)
 - Background Resource Usage optimization
 - Automated Test (Ui Test, Unit Test, Scenario Test)
+- Alarm Manager
 
 
 ## Dependency Injection Using Hilt
@@ -85,14 +86,15 @@ Based on UDF pattern implemented main component and screens
 
 Developed unit tests for important functionalities. 
 Setup base module using Hilt Dependency injection framework to provide test objects , such as 
-inMemoryDatabase, MockWebServer
+inMemoryDatabase
 using Mockk library mocked some dependencies 
 
+## Alarm Manager
+Alarms give you a way to perform time-based operations outside the lifetime of your application.
 
 ## TODO 
-
-- handle automated permission handler on ui test
-- Complete unit test, replace fake object instead of mock and other stubs
-- Complete scenario test,
-- Handle sub breeds,
-- Refactor data classes
+- add splash screen to app
+- add animation to components, such as transition or showing components.
+- handle automated permission handler on ui test.
+- Complete unit test, replace fake object instead of mock and other stubs.
+- Complete scenario test to show dialogs(date picker and time picker)
