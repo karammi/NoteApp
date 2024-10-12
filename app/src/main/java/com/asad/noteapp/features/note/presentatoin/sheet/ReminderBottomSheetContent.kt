@@ -27,7 +27,7 @@ fun ReminderBottomSheetContent(
 ) {
     val laterTimeValue = remember(key1 = Unit) {
         val calendar = Calendar.getInstance(Locale.getDefault())
-        calendar.add(Calendar.MINUTE, 1)
+        calendar.add(Calendar.MINUTE, 2)
         val sdf = SimpleDateFormat(DateConstants.TIME_FORMAT, Locale.getDefault())
         sdf.format(calendar.timeInMillis) to calendar.timeInMillis
     }

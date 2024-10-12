@@ -4,10 +4,10 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:name=".app.CustomNoteApplication"
@@ -50,6 +50,8 @@
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
 
+        <receiver android:name=".core.service.receiver.AlarmReceiver"
+            android:exported="true"/>
     </application>
 
 </manifest>

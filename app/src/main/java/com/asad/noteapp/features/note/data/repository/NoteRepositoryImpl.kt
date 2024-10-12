@@ -4,13 +4,14 @@ import com.asad.noteapp.features.note.data.dataSource.local.NoteLocalDataSource
 import com.asad.noteapp.core.domain.note.model.NoteModel
 import com.asad.noteapp.core.domain.note.model.toNoteEntity
 import com.asad.noteapp.core.domain.note.model.toNoteModel
-import com.asad.noteapp.features.note.data.reminderManager.ReminderLauncher
+import com.asad.noteapp.core.service.model.AlarmModel
+import com.asad.noteapp.core.service.services.AlarmSchedulerImpl
 import com.asad.noteapp.features.note.domain.repository.NoteRepository
 import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteLocalDataSource: NoteLocalDataSource,
-    private val reminderLauncher: ReminderLauncher
+    private val alarmSchedulerImpl: AlarmSchedulerImpl
 ) : NoteRepository {
 
     /**
@@ -20,11 +21,13 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun insertNote(note: NoteModel) {
         noteLocalDataSource.insertNote(note = note.toNoteEntity())
         if (note.reminder != null)
-            reminderLauncher.setReminder(
-                noteId = 0,
-                noteTitle = note.title,
-                noteBody = note.note,
-                reminder = note.reminder
+            alarmSchedulerImpl.schedule(
+                alarmModel = AlarmModel(
+                    id = note.id,
+                    title = note.title,
+                    note = note.note,
+                    alarmTime = note.reminder
+                )
             )
     }
 
