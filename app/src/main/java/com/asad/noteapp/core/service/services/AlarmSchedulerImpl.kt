@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import com.asad.noteapp.core.service.model.AlarmModel
 import com.asad.noteapp.core.service.notification.util.NotificationConstants
+import com.asad.noteapp.core.service.receiver.AlarmReceiver
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -14,11 +15,12 @@ class AlarmSchedulerImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : AlarmScheduler {
 
-    override fun schedule(alarmModel: AlarmModel): Boolean {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+    override fun schedule(alarmModel: AlarmModel) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
-                return false
+                return
             }
         }
 
@@ -28,24 +30,27 @@ class AlarmSchedulerImpl @Inject constructor(
             putExtra(NotificationConstants.NOTE_KEY, alarmModel.note)
         }
 
-        val pendingIntentFlag = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
-            PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
-
         val pendingIntent = PendingIntent.getBroadcast(
-            context, alarmModel.id, intent, pendingIntentFlag
+            context,
+            alarmModel.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             alarmModel.alarmTime,
             pendingIntent
         )
-        return true
     }
 
     override fun cancel(alarmModel: AlarmModel) {
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            alarmModel.hashCode(),
+            Intent(context, AlarmReceiver::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.cancel(pendingIntent)
     }
 }
 

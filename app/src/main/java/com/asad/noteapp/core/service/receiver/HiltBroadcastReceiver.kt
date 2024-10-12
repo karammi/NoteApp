@@ -1,4 +1,4 @@
-package com.asad.noteapp.core.service.services
+package com.asad.noteapp.core.service.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context

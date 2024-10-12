@@ -2,8 +2,6 @@ package com.asad.noteapp.features.note.di.module
 
 import com.asad.noteapp.features.note.data.dataSource.local.NoteLocalDataSource
 import com.asad.noteapp.features.note.data.dataSource.local.NoteLocalDataSourceImpl
-import com.asad.noteapp.features.note.data.reminderManager.ReminderLauncher
-import com.asad.noteapp.features.note.data.reminderManager.ReminderLauncherImpl
 import com.asad.noteapp.features.note.data.repository.NoteRepositoryImpl
 import com.asad.noteapp.features.note.domain.repository.NoteRepository
 import dagger.Binds
@@ -20,8 +18,5 @@ abstract class NoteBinderModule {
 
     @Binds
     abstract fun bindNoteLocalDataSource(noteLocalDataSource: NoteLocalDataSourceImpl): NoteLocalDataSource
-
-    @Binds
-    abstract fun bindReminderLauncher(reminderLauncher: ReminderLauncherImpl): ReminderLauncher
 
 }

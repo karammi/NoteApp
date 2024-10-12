@@ -50,7 +50,7 @@
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
 
-        <receiver android:name=".core.service.services.AlarmReceiver"
+        <receiver android:name=".core.service.receiver.AlarmReceiver"
             android:exported="true"/>
     </application>
 
