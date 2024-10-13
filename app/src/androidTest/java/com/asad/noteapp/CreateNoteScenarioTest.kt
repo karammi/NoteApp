@@ -39,13 +39,16 @@ class CreateNoteScenarioTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    private val permissionGranter =
-        UiAutomationPermissionGranter().addPermissions(android.Manifest.permission.POST_NOTIFICATIONS)
+    private val permissionGranter = UiAutomationPermissionGranter().apply {
+        addPermissions(android.Manifest.permission.POST_NOTIFICATIONS)
+    }
 
     val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() {
+        permissionGranter.requestPermissions()
+
         hiltRule.inject()
         composeTestRule.activity.setContent {
             NoteApp()
