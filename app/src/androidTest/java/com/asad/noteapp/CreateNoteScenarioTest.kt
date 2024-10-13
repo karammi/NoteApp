@@ -1,6 +1,5 @@
 package com.asad.noteapp
 
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
@@ -16,8 +15,6 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.permission.UiAutomationPermissionGranter
-import androidx.work.Configuration
-import androidx.work.WorkManager
 import com.asad.noteapp.app.MainActivity
 import com.asad.noteapp.app.navigation.NoteApp
 import com.asad.noteapp.core.di.module.DatabaseModule
@@ -47,16 +44,9 @@ class CreateNoteScenarioTest {
 
     val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-
     @Before
     fun setup() {
         hiltRule.inject()
-        if (!WorkManager.isInitialized())
-            WorkManager.initialize(
-                context, Configuration.Builder()
-                    .setMinimumLoggingLevel(Log.DEBUG)
-                    .build()
-            )
         composeTestRule.activity.setContent {
             NoteApp()
         }
