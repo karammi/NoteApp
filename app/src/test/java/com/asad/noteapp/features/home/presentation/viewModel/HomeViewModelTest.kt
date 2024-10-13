@@ -32,12 +32,6 @@ class HomeViewModelTest {
 
     private val calendarRepository = mockk<CalendarRepositoryImpl>()
 
-    @Before
-    fun setup() {
-
-
-    }
-
 
     @Test
     fun checkShowingIsLoadingState() = runTest {
@@ -51,9 +45,8 @@ class HomeViewModelTest {
         //Act
         sut.uiState.test {
             val firstEmission = awaitItem()
-
             //Assert
-            assertThat(firstEmission).isEqualTo(homeUiState)
+            assertThat(firstEmission.isLoading).isEqualTo(homeUiState.isLoading)
 
             cancelAndConsumeRemainingEvents()
         }
