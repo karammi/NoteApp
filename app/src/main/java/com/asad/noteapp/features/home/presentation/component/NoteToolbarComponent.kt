@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -40,6 +42,7 @@ import com.asad.noteapp.features.home.presentation.model.HomeUiState
 @Composable
 fun RowScope.NoteToolbarComponent(
     uiState: State<HomeUiState>,
+    onSearchChanged: (String?) -> Unit,
     onLayoutChanged: (useGridLayout: Boolean) -> Unit,
     onMenuClicked: () -> Unit
 ) {
@@ -100,6 +103,14 @@ fun RowScope.NoteToolbarComponent(
                         contentDescription = "search icon"
                     )
                 },
+
+                trailingIcon = {
+                    if (textValue.value.isNotBlank())
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "search icon"
+                        )
+                },
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
@@ -142,7 +153,8 @@ fun NoteToolbarComponentPreview() {
         NoteToolbarComponent(
             uiState = remember { mutableStateOf(HomeUiState()) },
             onLayoutChanged = {},
-            onMenuClicked = {}
+            onMenuClicked = {},
+            onSearchChanged = {}
         )
     }
 }

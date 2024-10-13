@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.asad.noteapp.core.data.dataSource.calendar.repository.CalendarRepositoryImpl
 import com.asad.noteapp.core.domain.note.model.NoteModel
 import com.asad.noteapp.features.home.domain.usecase.FetchNotesUseCase
+import com.asad.noteapp.features.home.domain.usecase.SearchNoteUseCase
 import com.asad.noteapp.features.home.presentation.model.HomeUiState
 import com.asad.noteapp.features.home.presentation.model.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val fetchNotesUseCase: FetchNotesUseCase,
+    private val searchNoteUseCase: SearchNoteUseCase,
     private val calendarRepository: CalendarRepositoryImpl
 ) : ViewModel() {
 
@@ -32,11 +34,11 @@ class HomeViewModel @Inject constructor(
     fun fetchNotes() {
         viewModelScope.launch {
             fetchNotesUseCase()
-                .map {
-                    notes -> notes.map { note -> noteModelToNote(note) }
+                .map { notes ->
+                    notes.map { note -> noteModelToNote(note) }
                 }
-                .collect {
-                    notes -> updateUiState(notes = notes)
+                .collect { notes ->
+                    updateUiState(notes = notes)
                 }
         }
     }

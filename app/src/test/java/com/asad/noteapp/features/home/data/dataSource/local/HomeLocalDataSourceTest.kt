@@ -41,30 +41,6 @@ class HomeLocalDataSourceImplTest {
         assertThat(actualNotes).isEqualTo(expectedNotes)
     }
 }
-/*@RunWith(JUnit4::class)
-class HomeLocalDataSourceTest {
-
-    @Mock
-    private lateinit var fakeHomeNoteDao: FakeHomeNoteDao
-    private lateinit var sut: HomeLocalDataSourceImpl
-
-    @Before
-    fun setup() {
-        fakeHomeNoteDao = FakeHomeNoteDao()
-        sut = HomeLocalDataSourceImpl(homeDao = fakeHomeNoteDao)
-    }
-
-    @Test
-    fun fetch_note_should_return_list_of_notes() = runTest {
-        // Arrange
-
-
-        // Act
-
-        // Assert
-        assertThat("a").isEqualTo("a")
-    }
-}*/
 
 class FakeHomeNoteDao : HomeDao {
     override fun fetchNotes(): Flow<List<NoteEntity>> {

@@ -11,9 +11,13 @@ import javax.inject.Inject
 class HomeRepositoryImpl @Inject constructor(
     private val homeLocalDataSource: HomeLocalDataSource
 ) : HomeRepository {
-    override suspend fun fetchNotes(): Flow<List<NoteModel>> {
+    override fun fetchNotes(): Flow<List<NoteModel>> {
         return homeLocalDataSource
             .fetchNotes()
             .map { notes -> notes.map { currentNote -> currentNote.toNoteModel() } }
+    }
+
+    override fun searchNotes(query: String): Flow<List<NoteModel>> {
+        TODO("Not yet implemented")
     }
 }
