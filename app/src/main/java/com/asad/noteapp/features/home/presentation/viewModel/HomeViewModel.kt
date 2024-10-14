@@ -56,6 +56,9 @@ class HomeViewModel @Inject constructor(
     fun updateListViewLayout(useGridLayout: Boolean) {
         _uiState.update { currentState -> currentState.copy(isGridLayout = useGridLayout) }
     }
+    fun onSearchChanged(query: String){
+        _uiState.update { currentState-> currentState.copy(searchQuery = query) }
+    }
 
     fun noteModelToNote(noteModel: NoteModel): Note {
         return with(noteModel) {

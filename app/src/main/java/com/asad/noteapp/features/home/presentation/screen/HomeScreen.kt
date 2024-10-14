@@ -76,6 +76,7 @@ fun HomeScreen(
         onCreateNoteClicked = onAddNoteClicked,
         onNoteClicked = onNoteClicked,
         onLayoutChanged = viewModel::updateListViewLayout,
+        onSearchChanged = viewModel::onSearchChanged,
         onMenuClicked = {}
     )
 
@@ -90,6 +91,7 @@ fun HomeContent(
     onCreateNoteClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit,
     onLayoutChanged: (useGridLayout: Boolean) -> Unit,
+    onSearchChanged: (String) -> Unit,
     onMenuClicked: () -> Unit
 ) {
     Scaffold(
@@ -97,7 +99,14 @@ fun HomeContent(
             TopAppBar(
                 title = {},
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                actions = { NoteToolbarComponent(uiState, onLayoutChanged, onMenuClicked) },
+                actions = {
+                    NoteToolbarComponent(
+                        uiState = uiState,
+                        onSearchChanged = onSearchChanged,
+                        onLayoutChanged = onLayoutChanged,
+                        onMenuClicked = onMenuClicked
+                    )
+                },
                 modifier = Modifier
                     .testTag(stringResource(R.string.top_app_bar))
                     .border(1.dp, Color.LightGray)
@@ -231,13 +240,14 @@ fun HomeContent(
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun HomeContentPreview() {
-    val homeUiState = remember { mutableStateOf(HomeUiState()) } //
+    val homeUiState = remember { mutableStateOf(HomeUiState()) }
     HomeContent(
         uiState = homeUiState,
         windowSize = rememberWindowSize(),
         onCreateNoteClicked = {},
         onNoteClicked = {},
         onLayoutChanged = {},
-        onMenuClicked = {}
+        onMenuClicked = {},
+        onSearchChanged = {}
     )
 }

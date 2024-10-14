@@ -42,7 +42,7 @@ import com.asad.noteapp.features.home.presentation.model.HomeUiState
 @Composable
 fun RowScope.NoteToolbarComponent(
     uiState: State<HomeUiState>,
-    onSearchChanged: (String?) -> Unit,
+    onSearchChanged: (String) -> Unit,
     onLayoutChanged: (useGridLayout: Boolean) -> Unit,
     onMenuClicked: () -> Unit
 ) {
@@ -59,9 +59,6 @@ fun RowScope.NoteToolbarComponent(
 
     Spacer(modifier = Modifier.width(8.dp))
 
-    val textValue = remember {
-        mutableStateOf("")
-    }
     Box(
         modifier = Modifier
             .wrapContentHeight()
@@ -77,14 +74,13 @@ fun RowScope.NoteToolbarComponent(
             horizontalArrangement = Arrangement.Center
         ) {
 
-
             Spacer(modifier = Modifier.width(8.dp))
 
             TextField(
-                value = textValue.value,
+                value = uiState.value.searchQuery ?: "",
                 onValueChange = {
-                    if (textValue.value.length <= 15)
-                        textValue.value = it
+                    if ((uiState.value.searchQuery?.length ?: 0) <= 15)
+                        onSearchChanged(it)
                 },
                 maxLines = 1,
                 modifier = Modifier
@@ -105,11 +101,12 @@ fun RowScope.NoteToolbarComponent(
                 },
 
                 trailingIcon = {
-                    if (textValue.value.isNotBlank())
+                    uiState.value.searchQuery?.let {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "search icon"
                         )
+                    }
                 },
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
