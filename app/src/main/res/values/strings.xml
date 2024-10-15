@@ -48,5 +48,7 @@
     <string name="next_week_test_tag">next_week_test_tag</string>
     <string name="pick_a_date_label">Pick a Date</string>
     <string name="pick_a_date_test_tag">Pick a Date</string>
+    <string name="search_icon">search_icon</string>
+    <string name="close_icon">close icon</string>
 
 </resources>

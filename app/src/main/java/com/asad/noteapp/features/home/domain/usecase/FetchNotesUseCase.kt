@@ -8,7 +8,7 @@ import javax.inject.Inject
 class FetchNotesUseCase @Inject constructor(
     private val homeRepository: HomeRepository
 ) {
-     operator fun invoke(): Flow<List<NoteModel>> {
-        return homeRepository.fetchNotes()
-    }
+    operator fun invoke(query: String): Flow<List<NoteModel>> =
+        homeRepository.fetchNotes(query = query)
+
 }

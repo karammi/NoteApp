@@ -53,7 +53,7 @@ import com.asad.noteapp.theme.util.WindowSize
 import com.asad.noteapp.theme.util.WindowType
 import com.asad.noteapp.theme.util.rememberWindowSize
 import com.asad.noteapp.features.home.presentation.component.NoteItemComponent
-import com.asad.noteapp.features.home.presentation.component.NoteToolbarComponent
+import com.asad.noteapp.features.home.presentation.component.HomeToolbarComponent
 import com.asad.noteapp.features.home.presentation.model.Note
 import com.asad.noteapp.features.home.presentation.model.HomeUiState
 import com.asad.noteapp.features.home.presentation.viewModel.HomeViewModel
@@ -77,7 +77,8 @@ fun HomeScreen(
         onNoteClicked = onNoteClicked,
         onLayoutChanged = viewModel::updateListViewLayout,
         onSearchChanged = viewModel::onSearchChanged,
-        onMenuClicked = {}
+        onMenuClicked = {},
+        onSearchBarCloseClicked = viewModel::onSearchBarCloseClicked
     )
 
 }
@@ -92,7 +93,8 @@ fun HomeContent(
     onNoteClicked: (Int) -> Unit,
     onLayoutChanged: (useGridLayout: Boolean) -> Unit,
     onSearchChanged: (String) -> Unit,
-    onMenuClicked: () -> Unit
+    onMenuClicked: () -> Unit,
+    onSearchBarCloseClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -100,11 +102,12 @@ fun HomeContent(
                 title = {},
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                 actions = {
-                    NoteToolbarComponent(
+                    HomeToolbarComponent(
                         uiState = uiState,
                         onSearchChanged = onSearchChanged,
                         onLayoutChanged = onLayoutChanged,
-                        onMenuClicked = onMenuClicked
+                        onMenuClicked = onMenuClicked,
+                        onSearchBarCloseClicked = onSearchBarCloseClicked
                     )
                 },
                 modifier = Modifier
@@ -248,6 +251,7 @@ fun HomeContentPreview() {
         onNoteClicked = {},
         onLayoutChanged = {},
         onMenuClicked = {},
-        onSearchChanged = {}
+        onSearchChanged = {},
+        onSearchBarCloseClicked = {}
     )
 }

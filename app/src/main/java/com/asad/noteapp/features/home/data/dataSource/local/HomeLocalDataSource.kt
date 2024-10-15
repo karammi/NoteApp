@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeLocalDataSource {
 
-    fun fetchNotes(): Flow<List<NoteEntity>>
-
-    fun searchNotes(query: String): Flow<List<NoteEntity>>
+    fun fetchNotes(query: String): Flow<List<NoteEntity>>
 }

@@ -22,7 +22,6 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
-
     private lateinit var sut: HomeViewModel
 
     @get:Rule
@@ -31,7 +30,6 @@ class HomeViewModelTest {
     private val fetchNotesUseCase = mockk<FetchNotesUseCase>()
 
     private val calendarRepository = mockk<CalendarRepositoryImpl>()
-
 
     @Test
     fun checkShowingIsLoadingState() = runTest {
@@ -56,8 +54,6 @@ class HomeViewModelTest {
     @Test
     fun checkShowingList() = runTest(UnconfinedTestDispatcher()) {
         //arrange
-        val homeUiState = HomeUiState()
-
         val mockNotes = listOf<NoteModel>(
             NoteModel(id = 1, title = "title", note = "description"),
             NoteModel(id = 2, title = "title", note = "description"),
@@ -69,7 +65,7 @@ class HomeViewModelTest {
             Note(id = 3, title = "title", note = "description")
         )
 
-        coEvery { fetchNotesUseCase.invoke() } returns flow { emit(mockNotes) }
+        coEvery { fetchNotesUseCase.invoke("") } returns flow { emit(mockNotes) }
 
         sut = HomeViewModel(
             fetchNotesUseCase = fetchNotesUseCase,
