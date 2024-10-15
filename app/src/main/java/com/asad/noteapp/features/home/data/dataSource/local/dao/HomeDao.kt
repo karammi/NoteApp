@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HomeDao {
-    @Query("SELECT * FROM ${NoteConstant.TABLE_NAME}")
-    fun fetchNotes(): Flow<List<NoteEntity>>
+
+    @Query("SELECT * FROM ${NoteConstant.TABLE_NAME} WHERE title LIKE '%' || :query || '%'")
+    fun fetchNotes(query: String): Flow<List<NoteEntity>>
 }

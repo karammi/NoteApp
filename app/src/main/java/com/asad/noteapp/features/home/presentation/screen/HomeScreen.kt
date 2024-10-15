@@ -34,6 +34,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,6 +44,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -50,7 +53,7 @@ import com.asad.noteapp.theme.util.WindowSize
 import com.asad.noteapp.theme.util.WindowType
 import com.asad.noteapp.theme.util.rememberWindowSize
 import com.asad.noteapp.features.home.presentation.component.NoteItemComponent
-import com.asad.noteapp.features.home.presentation.component.NoteToolbarComponent
+import com.asad.noteapp.features.home.presentation.component.HomeToolbarComponent
 import com.asad.noteapp.features.home.presentation.model.Note
 import com.asad.noteapp.features.home.presentation.model.HomeUiState
 import com.asad.noteapp.features.home.presentation.viewModel.HomeViewModel
@@ -73,7 +76,9 @@ fun HomeScreen(
         onCreateNoteClicked = onAddNoteClicked,
         onNoteClicked = onNoteClicked,
         onLayoutChanged = viewModel::updateListViewLayout,
-        onMenuClicked = {}
+        onSearchChanged = viewModel::onSearchChanged,
+        onMenuClicked = {},
+        onSearchBarCloseClicked = viewModel::onSearchBarCloseClicked
     )
 
 }
@@ -87,14 +92,24 @@ fun HomeContent(
     onCreateNoteClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit,
     onLayoutChanged: (useGridLayout: Boolean) -> Unit,
-    onMenuClicked: () -> Unit
+    onSearchChanged: (String) -> Unit,
+    onMenuClicked: () -> Unit,
+    onSearchBarCloseClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {},
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                actions = { NoteToolbarComponent(uiState, onLayoutChanged, onMenuClicked) },
+                actions = {
+                    HomeToolbarComponent(
+                        uiState = uiState,
+                        onSearchChanged = onSearchChanged,
+                        onLayoutChanged = onLayoutChanged,
+                        onMenuClicked = onMenuClicked,
+                        onSearchBarCloseClicked = onSearchBarCloseClicked
+                    )
+                },
                 modifier = Modifier
                     .testTag(stringResource(R.string.top_app_bar))
                     .border(1.dp, Color.LightGray)
@@ -115,18 +130,10 @@ fun HomeContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .border(1.dp, shape = RoundedCornerShape(12.dp), color = Color.LightGray)
                         .padding(24.dp)
-                        .clickable { onCreateNoteClicked() }
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_menu_board),
-                        contentDescription = stringResource(R.string.img_create_note),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = stringResource(R.string.create_note_app, Emoji.eye),
+                        text = stringResource(R.string.empty_list, Emoji.eye),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -225,3 +232,18 @@ fun HomeContent(
     }
 }
 
+@Preview(showBackground = true, showSystemUi = false)
+@Composable
+fun HomeContentPreview() {
+    val homeUiState = remember { mutableStateOf(HomeUiState()) }
+    HomeContent(
+        uiState = homeUiState,
+        windowSize = rememberWindowSize(),
+        onCreateNoteClicked = {},
+        onNoteClicked = {},
+        onLayoutChanged = {},
+        onMenuClicked = {},
+        onSearchChanged = {},
+        onSearchBarCloseClicked = {}
+    )
+}

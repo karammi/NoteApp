@@ -8,4 +8,5 @@ data class HomeUiState(
     val notes: PersistentList<Note> = persistentListOf(),
     val isError: Boolean = false,
     val isGridLayout: Boolean = false,
+    val searchQuery: String? = null
 )
