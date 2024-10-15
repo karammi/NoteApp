@@ -33,10 +33,6 @@ fun NoteItemComponent(
     modifier: Modifier = Modifier,
     note: Note,
     onNoteClicked: (Int) -> Unit,
-//    hasTag: Boolean = false,
-//    tagName: String? = null,
-//    hasReminder: Boolean = false,
-//    reminderTime: String? = null
 ) {
     Card(
         modifier = modifier

@@ -15,7 +15,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 
-@RunWith(MockitoJUnitRunner::class) // Or your preferred runner
+@RunWith(MockitoJUnitRunner::class)
 class HomeLocalDataSourceImplTest {
 
     @Mock
@@ -32,42 +32,18 @@ class HomeLocalDataSourceImplTest {
             NoteEntity(2, "Title 2", "Content 2")
         )
         val flow = flowOf(expectedNotes)
-        `when`(homeDao.fetchNotes()).thenReturn(flow)
+        `when`(homeDao.fetchNotes("")).thenReturn(flow)
 
         // Act
-        val actualNotes = homeLocalDataSource.fetchNotes().first()
+        val actualNotes = homeLocalDataSource.fetchNotes("").first()
 
         // Assert
         assertThat(actualNotes).isEqualTo(expectedNotes)
     }
 }
-/*@RunWith(JUnit4::class)
-class HomeLocalDataSourceTest {
-
-    @Mock
-    private lateinit var fakeHomeNoteDao: FakeHomeNoteDao
-    private lateinit var sut: HomeLocalDataSourceImpl
-
-    @Before
-    fun setup() {
-        fakeHomeNoteDao = FakeHomeNoteDao()
-        sut = HomeLocalDataSourceImpl(homeDao = fakeHomeNoteDao)
-    }
-
-    @Test
-    fun fetch_note_should_return_list_of_notes() = runTest {
-        // Arrange
-
-
-        // Act
-
-        // Assert
-        assertThat("a").isEqualTo("a")
-    }
-}*/
 
 class FakeHomeNoteDao : HomeDao {
-    override fun fetchNotes(): Flow<List<NoteEntity>> {
+    override fun fetchNotes(query: String): Flow<List<NoteEntity>> {
         return flowOf(
             listOf(
                 NoteEntity(1, "Title", "Body"),

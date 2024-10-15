@@ -8,7 +8,7 @@ import javax.inject.Inject
 class HomeLocalDataSourceImpl @Inject constructor(
     private val homeDao: HomeDao
 ) : HomeLocalDataSource {
-    override fun fetchNotes(): Flow<List<NoteEntity>> {
-        return homeDao.fetchNotes()
-    }
+
+    override fun fetchNotes(query: String): Flow<List<NoteEntity>> =
+        homeDao.fetchNotes(query = query)
 }
