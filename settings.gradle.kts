@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "NoteApp"
 include(":app")
 include(":Theme")
+include(":Core")
