@@ -2,6 +2,7 @@
     <string name="app_name">Heli Note App</string>
 
     <!--HomeScreen-->
+    <string name="empty_list" formatted="true">There is not any note, make it now %s</string>
     <string name="create_note_app" formatted="true">Create New Note %s</string>
     <string name="recent_all_notes" formatted="true">Recent Notes %s</string>
     <string name="labels">Labels</string>

@@ -130,18 +130,10 @@ fun HomeContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .border(1.dp, shape = RoundedCornerShape(12.dp), color = Color.LightGray)
                         .padding(24.dp)
-                        .clickable { onCreateNoteClicked() }
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_menu_board),
-                        contentDescription = stringResource(R.string.img_create_note),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = stringResource(R.string.create_note_app, Emoji.eye),
+                        text = stringResource(R.string.empty_list, Emoji.eye),
                         textAlign = TextAlign.Center
                     )
                 }

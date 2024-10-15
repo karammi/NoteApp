@@ -56,23 +56,30 @@ class CreateNoteScenarioTest {
     }
 
     @Test
-    fun scenarioOfCreateNoteAndShowNoteOnHomeScreen() {
+    fun whenNoteCreated_isDisplayedOnHome() {
         composeTestRule.apply {
             onNodeWithContentDescription(context.getString(R.string.add_note)).assertExists()
 
             onNodeWithText(
                 context.getString(
-                    R.string.create_note_app,
+                    R.string.empty_list,
                     Emoji.eye
                 )
             ).assertIsDisplayed()
 
-            onNodeWithText(
+            onNodeWithTag(
                 context.getString(
-                    R.string.create_note_app,
-                    Emoji.eye
+                    R.string.create_note_test_tag,
                 )
-            ).performClick()
+            ).assertIsDisplayed()
+
+
+            onNodeWithTag(
+                context.getString(
+                    R.string.create_note_test_tag,
+                )
+            )
+                .performClick()
 
 
             waitUntil {
@@ -139,22 +146,27 @@ class CreateNoteScenarioTest {
     }
 
     @Test
-    fun scenarioOfCreateNoteAndShowNoteOnHomeScreenWithSetReminder() {
+    fun scenarioNoteWithReminderDisplayedOnHomeScreen() {
 
         composeTestRule.apply {
             onNodeWithContentDescription(context.getString(R.string.add_note)).assertExists()
 
             onNodeWithText(
                 context.getString(
-                    R.string.create_note_app,
+                    R.string.empty_list,
                     Emoji.eye
                 )
             ).assertIsDisplayed()
 
-            onNodeWithText(
+            onNodeWithTag(
                 context.getString(
-                    R.string.create_note_app,
-                    Emoji.eye
+                    R.string.create_note_test_tag,
+                )
+            ).assertIsDisplayed()
+
+            onNodeWithTag(
+                context.getString(
+                    R.string.create_note_test_tag,
                 )
             ).performClick()
 
